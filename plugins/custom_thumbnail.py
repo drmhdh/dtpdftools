@@ -102,7 +102,7 @@ async def savethumbnail(bot, update):
         if not os.path.isdir(download_location):
             os.makedirs(download_location)
         await bot.download_media(
-            message=update,
+            message=update.reply_to_message,
             file_name=download_location
         )
     else:
