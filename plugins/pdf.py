@@ -456,11 +456,6 @@ async def documents(bot, message):
         pass
 
 
-
-
-
-
-
 # REPLY TO /start COMMAND
 @Client.on_message(filters.command('start'))
 async def start(bot, message):
@@ -512,7 +507,7 @@ async def start(bot, message):
                 return
         
         await bot.send_message(
-            message.chat.id,
+            chat_id=message.from_user.id,
             Msgs.welcomeMsg.format(
                 message.from_user.first_name, message.chat.id
             ),
