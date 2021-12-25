@@ -11,6 +11,7 @@ logging.basicConfig(level=logging.DEBUG,
 logger = logging.getLogger(__name__)
 import pyrogram
 import os
+from pyrogram import Client
 from configs import SESSION, API_ID, API_HASH, API_TOKEN
 
 # the secret configuration specific things
