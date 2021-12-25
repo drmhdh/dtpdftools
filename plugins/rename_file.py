@@ -32,7 +32,7 @@ from hachoir.parser import createParser
 # https://stackoverflow.com/a/37631799/4723940
 from PIL import Image
 
-if __name__ == "__main__" :
+if __nam__ == "__main__" :
     # create download directory, if not exist
     if not os.path.isdir(Config.DOWNLOAD_LOCATION):
         os.makedirs(Config.DOWNLOAD_LOCATION)
@@ -49,7 +49,7 @@ async def rename_doc(bot, update):
             revoke=True
         )
         return
-    update.from_user.id, update.text, "rename"
+    update.reply_to_message.from_user.id, update.text, "rename"
     if (" " in update.text) and (update.reply_to_message is not None):
         cmd, file_name = update.text.split(" ", 1)
         if len(file_name) > 64:
