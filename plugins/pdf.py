@@ -507,9 +507,9 @@ async def start(bot, message):
                 return
         
         await bot.send_message(
-            message.from_user.id,
-            Msgs.welcomeMsg.format(
-                message.from_user.first_name, message.chat.id
+            chat_id=message.from_user.id,
+            text=Msgs.welcomeMsg.format(
+                message.from_user.first_name
             ),
             disable_web_page_preview = True,
             reply_markup = InlineKeyboardMarkup(
