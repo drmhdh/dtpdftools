@@ -13,7 +13,6 @@ import pyrogram
 import os
 from pyrogram import Client
 from configs import Config
-from configs.Config import SESSION
 
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
@@ -24,10 +23,10 @@ else:
 class Bot(Client):
     def __init__(self):
         super().__init__(
-            session_name=config.SESSION,
-            api_id=config.API_ID,
-            api_hash=config.API_HASH,
-            bot_token=config.API_TOKEN,
+            session_name=Config.SESSION,
+            api_id=Config.API_ID,
+            api_hash=Config.API_HASH,
+            bot_token=Config.API_TOKEN,
             workers=50,
             plugins={"root": "plugins"},
             sleep_threshold=5,
