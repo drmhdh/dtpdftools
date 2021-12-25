@@ -49,7 +49,7 @@ async def rename_doc(bot, update):
             revoke=True
         )
         return
-    update.reply_to_message.from_user.id, update.text, "rename"
+    update.reply_to_message.message_id, update.text, "rename"
     if (" " in update.text) and (update.reply_to_message is not None):
         cmd, file_name = update.text.split(" ", 1)
         if len(file_name) > 64:
