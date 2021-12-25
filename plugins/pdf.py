@@ -31,13 +31,13 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 
 # PYROGRAM INSTANCE
-"""bot = Client(
-    "pyroPdf",
+bot = Client(
+    "pdf2img",
     parse_mode = "markdown",
-    api_id = Configs.API_ID,
-    api_hash = Configs.API_HASH,
-    bot_token = Configs.API_TOKEN
-)"""
+    api_id = Config.API_ID,
+    api_hash = Config.API_HASH,
+    bot_token = Config.API_TOKEN
+)
 
 # GLOBAL VARIABLES
 PDF = {}            # save images for generating pdf 
@@ -1205,8 +1205,7 @@ async def answer(Client, CallbackQuery):
     
     edit = CallbackQuery.data
     
-    #if edit == "strtDevEdt":
-    if edit.startswith("strtDevEdt"):
+    if edit == "strtDevEdt":
         
         try:
             await callbackQuery.edit_message_text(
@@ -1237,8 +1236,7 @@ async def answer(Client, CallbackQuery):
         except Exception:
             pass
         
-    #elif edit == "imgsToPdfEdit":
-    elif edit.startswith("imgsToPdfEdit"):
+    elif edit == "imgsToPdfEdit":
         
         try:
             await callbackQuery.edit_message_text(
@@ -1269,8 +1267,7 @@ async def answer(Client, CallbackQuery):
         except Exception:
             pass
         
-    #elif edit == "pdfToImgsEdit":
-    elif edit.startswith("pdfToImgsEdit"):    
+    elif edit == "pdfToImgsEdit": 
         
         try:
             await callbackQuery.edit_message_text(
@@ -1305,8 +1302,7 @@ async def answer(Client, CallbackQuery):
         except Exception:
             pass
         
-    #elif edit == "filsToPdfEdit":
-    elif edit.startswith("filsToPdfEdit"):    
+    elif edit == "filsToPdfEdit":   
         
         try:
             await callbackQuery.edit_message_text(
@@ -1341,8 +1337,7 @@ async def answer(Client, CallbackQuery):
         except Exception:
             pass
         
-    #elif edit == "warningEdit":
-    elif edit.startswith("warningEdit"):        
+    elif edit == "warningEdit":      
         
         try:
             await callbackQuery.edit_message_text(
@@ -1373,8 +1368,7 @@ async def answer(Client, CallbackQuery):
         except Exception:
             pass
         
-    #elif edit == "back":
-    elif edit.startswith("back"):      
+    elif edit == "back":  
         try:
             await callbackQuery.edit_message_text(
                 Msgs.back2Start, disable_web_page_preview = True,
@@ -1404,8 +1398,7 @@ async def answer(Client, CallbackQuery):
         except Exception:
             pass
     
-    #elif edit == "close":
-    elif edit.startswith("close"):     
+    elif edit == "close": 
         
         try:
             await bot.delete_messages(
