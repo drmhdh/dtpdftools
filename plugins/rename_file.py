@@ -33,7 +33,7 @@ from hachoir.parser import createParser
 from PIL import Image
 
 
-@fClient.on_message(filters.command(["rename"]))
+@Client.on_message(filters.command(["rename"]))
 async def rename_doc(bot, update):
     if update.from_user.id in Config.BANNED_USERS:
         await bot.delete_messages(
