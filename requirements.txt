@@ -5,13 +5,9 @@ pyrogram
 tgcrypto
 convertapi
 
-pyromod
-
-python-dotenv
-dnspython
-motor
-
+aiohttp
+beautifulsoup4
 hachoir
-mutagen
-psutil
-aiofiles
+numpy
+Pillow
+requests
