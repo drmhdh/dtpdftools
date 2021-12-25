@@ -1201,9 +1201,9 @@ async def extract(bot, message):
             
             
 @Client.on_callback_query()
-async def answer(Client, CallbackQuery): 
+async def answer(client, callbackQuery): 
     
-    edit = CallbackQuery.data
+    edit = callbackQuery.data
     
     if edit == "strtDevEdt":
         
