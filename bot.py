@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 import pyrogram
 import os
 from pyrogram import Client
-from configs import SESSION, API_ID, API_HASH, API_TOKEN
+from configs import config
 
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
@@ -24,9 +24,9 @@ class Bot(Client):
     def __init__(self):
         super().__init__(
             session_name=SESSION,
-            api_id=API_ID,
-            api_hash=API_HASH,
-            bot_token=API_TOKEN,
+            api_id=config.API_ID,
+            api_hash=config.API_HASH,
+            bot_token=config.API_TOKEN,
             workers=50,
             plugins={"root": "plugins"},
             sleep_threshold=5,
