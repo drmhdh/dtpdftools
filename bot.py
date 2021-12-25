@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 import pyrogram
 import os
 from pyrogram import Client
-from configs import config
+from configs import Config
 
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
