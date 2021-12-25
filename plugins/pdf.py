@@ -1393,10 +1393,10 @@ async def answer(client, callbackQuery):
     elif edit == "close": 
         
         try:
-            await query.message.delete()
+            await callbackQuery.message.delete()
             await bot.delete_messages(
-                #chat_id = callbackQuery.message.chat.id,
-                #message_ids = callbackQuery.message.message_id
+                chat_id = callbackQuery.message.chat.id,
+                message_ids = callbackQuery.message.message_id
             )
             return
         
@@ -1420,19 +1420,19 @@ async def answer(client, callbackQuery):
             
             await bot.edit_message_text(
                 chat_id = callbackQuery.message.chat.id,
-                message_id = callbackQuery.message.message_id,
+                message_id = callbackQuery.reply_to_message.message_id,
                 text = "`Downloading your pdf..⏳`"
             )
             
             await bot.download_media(
                 PDF2IMG[callbackQuery.message.chat.id],
-                f'{callbackQuery.message.reply_to_message.message_id}/pdf.pdf'
+                f'{callbackQuery.message.message_id}/pdf.pdf'
             )
             
             del PDF2IMG[callbackQuery.message.chat.id]
             del PDF2IMGPGNO[callbackQuery.message.chat.id]
             
-            doc = fitz.open(f'{callbackQuery.message.reply_to_message.message_id}/pdf.pdf')
+            doc = fitz.open(f'{callbackQuery.message.message_id}/pdf.pdf')
             zoom = 1
             mat = fitz.Matrix(zoom, zoom)
             
