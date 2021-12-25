@@ -1,0 +1,17 @@
+pillow
+PyPDF2
+PyMuPdf
+pyrogram
+tgcrypto
+convertapi
+
+pyromod
+
+python-dotenv
+dnspython
+motor
+
+hachoir
+mutagen
+psutil
+aiofiles
