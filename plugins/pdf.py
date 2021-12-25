@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 # logging.basicConfig(level=logging.INFO)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
-BOT = {}
+BOT = {} 
 # PYROGRAM INSTANCE  
 bot = Client(
     "pdf2img",
