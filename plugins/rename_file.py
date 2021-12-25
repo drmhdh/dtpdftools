@@ -42,10 +42,10 @@ if __name__ == "__main__" :
 
 @Client.on_message(filters.command(["rename"]))
 async def rename_doc(bot, update):
-    if update.from_user.id in Config.BANNED_USERS:
+    if update.reply_to_message.user.id in Config.BANNED_USERS:
         await bot.delete_messages(
-            chat_id=update.chat.id,
-            message_ids=update.message_id,
+            chat_id=update.reply_to_message.chat.id,
+            #message_ids=update.message_id,
             revoke=True
         )
         return
