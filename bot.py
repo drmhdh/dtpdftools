@@ -13,6 +13,7 @@ import pyrogram
 import os
 from pyrogram import Client
 from configs import Config
+from configs.Config import SESSION
 
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
