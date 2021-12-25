@@ -31,7 +31,7 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 BOT = {}
 # PYROGRAM INSTANCE 
-Client = Client(
+bot = Client(
     "pdf2img",
     parse_mode = "markdown",
     api_id = Config.API_ID,
