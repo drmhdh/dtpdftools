@@ -32,6 +32,17 @@ class Bot(Client):
             sleep_threshold=5,
         )
 
+# temp db for banned 
+class temp(object):
+    BANNED_USERS = []
+    BANNED_CHATS = []
+    ME = None
+    CURRENT=int(os.environ.get("SKIP", 2))
+    CANCEL = False
+    MELCOW = {}
+    U_NAME = None
+    B_NAME = None        
+        
 if __name__ == "__main__" :
     # create download directory, if not exist
     if not os.path.isdir(Config.DOWNLOAD_LOCATION):
@@ -39,32 +50,26 @@ if __name__ == "__main__" :
     plugins = dict(
         root="plugins"
     )
-    """app = bot(
-        "pdf2img",
-        bot_token=Config.TG_BOT_TOKEN,
-        api_id=Config.APP_ID,
-        api_hash=Config.API_HASH,
-        plugins=plugins
-    )"""
+   
     #Config.AUTH_USERS.add(1337144652)
     
     async def start(self):
         
-        #b_users, b_chats = await db.get_banned()
-        #temp.BANNED_USERS = b_users
-        #temp.BANNED_CHATS = b_chats
+        b_users, b_chats = await db.get_banned()
+        temp.BANNED_USERS = b_users
+        temp.BANNED_CHATS = b_chats
         
        
         await super().start()
-        #await Media.ensure_indexes()
+        await Media.ensure_indexes()
         me = await self.get_me()
-        #temp.ME = me.id
-        #temp.U_NAME = me.username
-        #temp.B_NAME = me.first_name
+        temp.ME = me.id
+        temp.U_NAME = me.username
+        temp.B_NAME = me.first_name
         self.username = '@' + me.username
            
         
-        #print(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
+        print(f"{me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
        
         
        
@@ -76,7 +81,3 @@ if __name__ == "__main__" :
 
 app = Bot()
 app.run()    
-    
-    
-    
-   # app.run()
