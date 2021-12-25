@@ -1198,10 +1198,10 @@ async def extract(bot, message):
             pass
             
 
-@Client.on_callback_query()
-async def answer(client: bot, callbackQuery: CallbackQuery): 
+@bot.on_callback_query()
+async def answer(client, callbackQuery): 
     
-    edit = CallbackQuery.data
+    edit = callbackQuery.data
     
     if edit == "strtDevEdt":
         
