@@ -1420,7 +1420,7 @@ async def answer(client, callbackQuery):
             
             await bot.edit_message_text(
                 chat_id = callbackQuery.message.chat.id,
-                message_id = callbackQuery.reply_to_message.message_id,
+                message_id = callbackQuery.message.message_id,
                 text = "`Downloading your pdf..⏳`"
             )
             
