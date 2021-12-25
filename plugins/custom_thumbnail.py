@@ -85,7 +85,7 @@ async def generate_custom_thumbnail(bot, update):
         )
 
 @Client.on_message(filters.command(["savethumbnail"])) #filters.photo)
-async def save_photo(bot, update):
+async def savethumbnail(bot, update):
     if update.from_user.id in Config.BANNED_USERS:
         await bot.delete_messages(
             chat_id=update.chat.id,
@@ -93,8 +93,8 @@ async def save_photo(bot, update):
             revoke=True
         )
         return
-    #TRChatBase(update.from_user.id, update.text, "save_photo")
-    update.from_user.id, update.text, "save_photo"
+    #TRChatBase(update.from_user.id, update.text, "savethumbnail")
+    update.from_user.id, update.text, "savethumbnail"
     if update.media_group_id is not None:
         # album is sent
         download_location = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/" + str(update.media_group_id) + "/"
