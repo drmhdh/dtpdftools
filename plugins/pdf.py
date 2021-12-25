@@ -1407,7 +1407,7 @@ async def answer(client, callbackQuery):
     
         
         try:
-            if (callbackQuery.message.chat.id in PROCESS):
+            if (callbackQuery.message.chat.id in PROCESS) or (callbackQuery.message.chat.id not in PDF2IMG):
                 
                 await bot.edit_message_text(
                     chat_id = callbackQuery.message.chat.id,
@@ -1758,7 +1758,7 @@ async def answer(client, callbackQuery):
             
             await bot.download_media(
                 PDF2IMG[callbackQuery.message.chat.id],
-                f'{callbackQuery.message.reply_to_message.message_id}/pdf.pdf'
+                f'{callbackQuery.message.message_id}/pdf.pdf'
             )
             
             del PDF2IMG[callbackQuery.message.chat.id]
