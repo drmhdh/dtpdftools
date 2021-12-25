@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 BOT = {}
-# PYROGRAM INSTANCE 
+# PYROGRAM INSTANCE  
 bot = Client(
     "pdf2img",
     parse_mode = "markdown",
