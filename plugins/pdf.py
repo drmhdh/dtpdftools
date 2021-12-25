@@ -29,9 +29,9 @@ logger = logging.getLogger(__name__)
 # logging.basicConfig(level=logging.INFO)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
-
+BOT = {}
 # PYROGRAM INSTANCE 
-bot = Client(
+Client = Client(
     "pdf2img",
     parse_mode = "markdown",
     api_id = Config.API_ID,
@@ -76,8 +76,6 @@ if Config.CONVERT_API is not None:
 if Config.MAX_FILE_SIZE:
     MAX_FILE_SIZE = int(os.getenv("MAX_FILE_SIZE"))
     MAX_FILE_SIZE_IN_kiB = MAX_FILE_SIZE * 10000
-
-BOT = {}
     
 # if message is an image
 @Client.on_message(filters.private & filters.photo)
