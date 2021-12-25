@@ -45,7 +45,7 @@ class Bot(Client):
             sleep_threshold=5,
         )
 
-"""if __name__ == "__main__" :
+if __name__ == "__main__" :
     # create download directory, if not exist
     if not os.path.isdir(Config.DOWNLOAD_LOCATION):
         os.makedirs(Config.DOWNLOAD_LOCATION)
@@ -84,7 +84,7 @@ class Bot(Client):
 
     async def stop(self, *args):
         await super().stop()
-        print("Bot stopped. Bye.")"""
+        print("Bot stopped. Bye.")
 
 
 app = Bot()
