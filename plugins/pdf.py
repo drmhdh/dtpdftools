@@ -10,6 +10,7 @@
 
 
 import os
+import pyrogram
 import fitz
 import shutil
 import asyncio
@@ -22,7 +23,7 @@ from pyrogram import Client, filters
 from pyrogram.types import ForceReply
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from pyrogram.types import InputMediaPhoto, InputMediaDocument
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 logger = logging.getLogger(__name__)
 
@@ -121,7 +122,7 @@ async def images(bot, message):
     
  
 # if message is a document/file
-@Client.on_message(filters.command(["scan"])) #& filters.document  & filters.private
+@Client.on_message(filters.command('scan') #& filters.document  & filters.private
 async def documents(bot, message):
     
     try:
@@ -461,7 +462,7 @@ async def documents(bot, message):
 
 
 # REPLY TO /start COMMAND
-@Client.on_message(filters.command(["start"]))
+@Client.on_message(filters.command('start'))
 async def start(bot, message):
     
     try:
