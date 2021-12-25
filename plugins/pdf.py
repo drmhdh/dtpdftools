@@ -1405,8 +1405,8 @@ async def answer(client: Client, callbackQuery: CallbackQuery):
         
         try:
             await bot.delete_messages(
-                chat_id = callbackQuery.message.chat.id,
-                message_ids = callbackQuery.message.message_id
+                chat_id = callbackQuery.reply_to_message.chat.id,
+                message_ids = callbackQuery.reply_to_message.message_id
             )
             return
         
