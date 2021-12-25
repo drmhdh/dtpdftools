@@ -1,4 +1,4 @@
-# !/usr/bin/python
+
 # -*- coding: utf-8 -*-
 
 # ABOUT DEV. & SOURCE CODE
