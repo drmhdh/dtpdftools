@@ -47,6 +47,9 @@ class Config(object):
     OWNER_ID = os.environ.get("OWNER_ID")
     BANNED_USER = os.environ.get("BANNED_USER")
     PDF_THUMBNAIL = "./thumbnail.jpeg"
+    # the download location, where the HTTP Server runs
+    DOWNLOAD_LOCATION = "./DOWNLOADS"
+    
     
     
 # Message Variables
