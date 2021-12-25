@@ -5,6 +5,7 @@ pyrogram
 tgcrypto
 convertapi
 
+pyromod
 hachoir
 numpy
 Pillow
