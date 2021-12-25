@@ -28,11 +28,11 @@ def is_enabled(value, default):
         return default    
     
 
-"""# Bot information
+# Bot information
 SESSION = environ.get('SESSION', 'pdf2img')
 API_ID = int(environ['API_ID'])
 API_HASH = environ['API_HASH']
-API_TOKEN = environ['API_TOKEN']"""
+API_TOKEN = environ['API_TOKEN']
 
 
 
@@ -40,9 +40,9 @@ API_TOKEN = environ['API_TOKEN']"""
     
 # Config Variables
 class Config(object):
-    API_ID = int(os.environ.get("API_ID"))
-    API_HASH = os.environ.get("API_HASH")
-    API_TOKEN = os.environ.get("API_TOKEN")
+    #API_ID = int(os.environ.get("API_ID"))
+    #API_HASH = os.environ.get("API_HASH")
+    #API_TOKEN = os.environ.get("API_TOKEN")
     UPDATE_CHANNEL = os.environ.get("UPDATE_CHANNEL")
     CONVERT_API = os.environ.get("CONVERT_API")
     MAX_FILE_SIZE = os.environ.get("MAX_FILE_SIZE")
@@ -56,8 +56,8 @@ class Config(object):
     TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "")
     # The Telegram API things
     USER_NAME = os.environ.get("USER_NAME", "")
-    APP_ID = int(os.environ.get("APP_ID", ))
-    API_HASH = os.environ.get("API_HASH", "")
+    #APP_ID = int(os.environ.get("APP_ID", ))
+    #API_HASH = os.environ.get("API_HASH", "")
     # Get these values from my.telegram.org
     # Array to store users who are authorized to use the bot
     AUTH_USERS = set(int(x) for x in os.environ.get("AUTH_USERS", "").split())
