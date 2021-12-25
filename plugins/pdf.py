@@ -31,13 +31,13 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 BOT = {}
 # PYROGRAM INSTANCE 
-bot = Client(
+"""bot = Client(
     "pdf2img",
     parse_mode = "markdown",
     api_id = Config.API_ID,
     api_hash = Config.API_HASH,
     bot_token = Config.API_TOKEN
-)
+)"""
 
 # GLOBAL VARIABLES
 PDF = {}            # save images for generating pdf 
