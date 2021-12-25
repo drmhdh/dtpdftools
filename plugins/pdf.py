@@ -1198,7 +1198,7 @@ async def extract(bot, message):
             pass
             
             
-@Client.on_callback_query()
+"""@Client.on_callback_query()
 async def answer(Client, CallbackQuery): 
     
     edit = CallbackQuery.data
@@ -2040,5 +2040,5 @@ async def answer(Client, CallbackQuery):
                 )
                 
             except Exception:
-                pass        
+                pass"""        
   
