@@ -455,6 +455,7 @@ async def documents(bot, message):
     except Exception:
         pass
 
+ @Client.on_message(filters.command('start'))   
 async def start(bot, message):
     
     try:
