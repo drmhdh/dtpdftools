@@ -18,6 +18,7 @@ from PIL import Image
 from time import sleep
 from configs import Config, Msgs, ADMINS
 from plugins import callbacks
+from callbacks  import callback_data
 from pyrogram import Client, filters
 from pyrogram.types import ForceReply
 from PyPDF2 import PdfFileWriter, PdfFileReader
