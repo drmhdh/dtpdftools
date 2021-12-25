@@ -462,7 +462,7 @@ async def start(bot, message):
     
     try:
         await bot.send_chat_action(
-            message.chat.id, "typing"
+            message.from_user.id, "typing"
         )
         
         if Config.UPDATE_CHANNEL:
@@ -478,7 +478,7 @@ async def start(bot, message):
                 )
                 
                 await bot.send_message(
-                    message.chat.id,
+                    message.from_user.id,
                     Msgs.forceSubMsg.format(
                         message.from_user.first_name, message.chat.id
                     ),
@@ -501,14 +501,14 @@ async def start(bot, message):
                 )
                 
                 await bot.delete_messages(
-                    chat_id = message.chat.id,
+                    chat_id = message.from_user.id,
                     message_ids = message.message_id
                 )
                 return
         
         await bot.send_message(
-            chat_id=message.from_user.id,
-            text=Msgs.welcomeMsg.format(
+            message.from_user.id,
+            Msgs.welcomeMsg.format(
                 message.from_user.first_name
             ),
             disable_web_page_preview = True,
@@ -534,7 +534,7 @@ async def start(bot, message):
             )
         )
         await bot.delete_messages(
-            chat_id = message.chat.id,
+            chat_id = message.from_user.id,
             message_ids = message.message_id
         )
         
