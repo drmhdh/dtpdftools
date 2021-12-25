@@ -32,6 +32,14 @@ from hachoir.parser import createParser
 # https://stackoverflow.com/a/37631799/4723940
 from PIL import Image
 
+if __name__ == "__main__" :
+    # create download directory, if not exist
+    if not os.path.isdir(Config.DOWNLOAD_LOCATION):
+        os.makedirs(Config.DOWNLOAD_LOCATION)
+    plugins = dict(
+        root="plugins"
+    )
+
 @Client.on_message(filters.command(["rename"]))
 async def rename_doc(bot, update):
     if update.from_user.id in Config.BANNED_USERS:
