@@ -40,6 +40,7 @@ class Config(object):
     API_ID = int(os.environ.get("API_ID"))
     API_HASH = os.environ.get("API_HASH")
     API_TOKEN = os.environ.get("API_TOKEN")
+    SESSION = environ.get('SESSION', 'pdf2img')
     UPDATE_CHANNEL = os.environ.get("UPDATE_CHANNEL")
     CONVERT_API = os.environ.get("CONVERT_API")
     MAX_FILE_SIZE = os.environ.get("MAX_FILE_SIZE")
