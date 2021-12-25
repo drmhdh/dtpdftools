@@ -1203,7 +1203,7 @@ async def extract(bot, message):
             
             
 @Client.on_callback_query()
-async def answer(client, callbackQuery):
+async def answer(client: Client, query: CallbackQuery): #(client, callbackQuery)
     
     edit = callbackQuery.data
     
