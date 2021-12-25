@@ -549,7 +549,7 @@ async def start(bot, message):
     
     
 # /deletes : Deletes current Images to pdf Queue
-@Client.on_message(filters.command(["deletepdf"]))
+@Client.on_message(filters.command('deletepdf'))
 async def cancelI2P(bot, message):
     
     try:
@@ -571,7 +571,7 @@ async def cancelI2P(bot, message):
 
 
 # cancel current pdf to image Queue
-@Client.on_message(filters.command(["cancelpdf"]))
+@Client.on_message(filters.command('cancelpdf'))
 async def cancelP2I(bot, message):
     
     try:
@@ -590,7 +590,7 @@ async def cancelP2I(bot, message):
 
        
 # if message is a /feedback
-@Client.on_message(filters.command(["feedback"]))
+@Client.on_message(filters.command('feedback'))
 async def feedback(bot, message):
     
     try:
@@ -607,7 +607,7 @@ async def feedback(bot, message):
 
 
 # If message is /generate
-@Client.on_message(filters.command(["generate"]) & filters.private)
+@Client.on_message(filters.command('generate') & filters.private)
 async def generate(bot, message):
     
     try:
@@ -690,7 +690,7 @@ async def generate(bot, message):
    
     
     
-@Client.on_message(filters.command(["extract"])) #& filters.user(ADMINS)
+@Client.on_message(filters.command('extract')) #& filters.user(ADMINS)
 async def extract(bot, message):        
     try:
         if message.chat.id in PROCESS:
