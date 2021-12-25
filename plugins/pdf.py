@@ -455,14 +455,11 @@ async def documents(bot, message):
     except Exception:
         pass
 
-
-# REPLY TO /start COMMAND
-@Client.on_message(filters.command('start'))
 async def start(bot, message):
     
     try:
         await bot.send_chat_action(
-            message.from_user.id, "typing"
+            message.chat.id, "typing"
         )
         
         if Config.UPDATE_CHANNEL:
@@ -478,7 +475,7 @@ async def start(bot, message):
                 )
                 
                 await bot.send_message(
-                    message.from_user.id,
+                    message.chat.id,
                     Msgs.forceSubMsg.format(
                         message.from_user.first_name, message.chat.id
                     ),
@@ -501,26 +498,26 @@ async def start(bot, message):
                 )
                 
                 await bot.delete_messages(
-                    chat_id = message.from_user.id,
+                    chat_id = message.chat.id,
                     message_ids = message.message_id
                 )
                 return
         
         await bot.send_message(
-            message.from_user.id,
+            message.chat.id,
             Msgs.welcomeMsg.format(
-                message.from_user.first_name
+                message.from_user.first_name, message.chat.id
             ),
             disable_web_page_preview = True,
             reply_markup = InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            "About",
+                            "Case Study",
                             callback_data = "strtDevEdt"
                         ),
                         InlineKeyboardButton(
-                            "Help 🎊",
+                            "Explore Bot 🎊",
                             callback_data = "imgsToPdfEdit"
                         )
                     ],
@@ -534,15 +531,14 @@ async def start(bot, message):
             )
         )
         await bot.delete_messages(
-            chat_id = message.from_user.id,
+            chat_id = message.chat.id,
             message_ids = message.message_id
         )
         
     except Exception:
         pass
     
-    
-    
+           
 # /deletes : Deletes current Images to pdf Queue
 @Client.on_message(filters.command('deletepdf'))
 async def cancelI2P(bot, message):
