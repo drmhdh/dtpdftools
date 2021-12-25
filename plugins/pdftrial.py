@@ -28,6 +28,9 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 # logging.basicConfig(level=logging.INFO)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
+BUTTONS = {}
+BOT = {}
+            
 
 # PYROGRAM INSTANCE
 bot = Client(
