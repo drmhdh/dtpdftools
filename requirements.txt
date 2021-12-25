@@ -5,8 +5,6 @@ pyrogram
 tgcrypto
 convertapi
 
-#aiohttp
-beautifulsoup4
 hachoir
 numpy
 Pillow
