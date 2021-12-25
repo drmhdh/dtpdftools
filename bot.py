@@ -23,7 +23,7 @@ else:
 class Bot(Client):
     def __init__(self):
         super().__init__(
-            session_name=SESSION,
+            session_name=config.SESSION,
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             bot_token=config.API_TOKEN,
