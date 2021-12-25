@@ -97,7 +97,7 @@ async def savethumbnail(bot, update):
     update.from_user.id, update.text, "savethumbnail"
     if update.reply_to_message.media_group_id is not None:
         # album is sent
-        download_location = Config.DOWNLOAD_LOCATION + "/" + str(update.reply_to_message_user.user.id) + "/" + str(update.media_group_id) + "/"
+        download_location = Config.DOWNLOAD_LOCATION + "/" + str(update.reply_to_message.from_user.id) + "/" + str(update.media_group_id) + "/"
         # create download directory, if not exist
         if not os.path.isdir(download_location):
             os.makedirs(download_location)
@@ -107,15 +107,15 @@ async def savethumbnail(bot, update):
         )
     else:
         # received single photo
-        download_location = Config.DOWNLOAD_LOCATION + "/" + str(update.reply_to_message_user.user.id) + ".jpg"
+        download_location = Config.DOWNLOAD_LOCATION + "/" + str(update.reply_to_message.from_user.id) + ".jpg"
         await bot.download_media(
-            message=update,
+            message=update.reply_to_message,
             file_name=download_location
         )
         await bot.send_message(
             chat_id=update.chat.id,
             text=Translation.SAVED_CUSTOM_THUMB_NAIL,
-            reply_to_message_id=update.message_id
+            reply_to_message_id=update.reply_to_message.message_id
         )
 
 
