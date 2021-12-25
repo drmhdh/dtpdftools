@@ -49,13 +49,7 @@ async def rename_doc(bot, update):
             file_name = ne_x
         else:
             pass
-
-
-
-
-
-           
-          
+                     
         description = Translation.CUSTOM_CAPTION_UL_FILE
         download_location = Config.DOWNLOAD_LOCATION + "/"
         a = await bot.send_message(
