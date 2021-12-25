@@ -507,7 +507,7 @@ async def start(bot, message):
                 return
         
         await bot.send_message(
-            chat_id=message.from_user.id,
+            message.from_user.id,
             Msgs.welcomeMsg.format(
                 message.from_user.first_name, message.chat.id
             ),
