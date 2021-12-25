@@ -12,6 +12,7 @@
 import os
 import fitz
 import shutil
+import asyncio
 import logging
 import convertapi
 from PIL import Image
