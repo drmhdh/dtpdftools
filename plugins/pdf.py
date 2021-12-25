@@ -14,7 +14,6 @@ import fitz
 import shutil
 import logging
 import convertapi
-from bot import Bot
 from PIL import Image
 from time import sleep
 from configs import Config, Msgs, ADMINS
