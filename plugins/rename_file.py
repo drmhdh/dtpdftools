@@ -32,7 +32,7 @@ from hachoir.parser import createParser
 # https://stackoverflow.com/a/37631799/4723940
 from PIL import Image
 
-if __nam__ == "__main__" :
+if __name__ == "__main__" :
     # create download directory, if not exist
     if not os.path.isdir(Config.DOWNLOAD_LOCATION):
         os.makedirs(Config.DOWNLOAD_LOCATION)
