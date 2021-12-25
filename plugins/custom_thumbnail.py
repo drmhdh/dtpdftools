@@ -84,7 +84,7 @@ async def generate_custom_thumbnail(bot, update):
             reply_to_message_id=update.message_id
         )
 
-@Client.on_message(filters.photo)
+@Client.on_message(filters.command(["savethumbnail"])) #filters.photo)
 async def save_photo(bot, update):
     if update.from_user.id in Config.BANNED_USERS:
         await bot.delete_messages(
