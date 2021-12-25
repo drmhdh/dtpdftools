@@ -1420,7 +1420,7 @@ async def answer(client, callbackQuery):
             
             await bot.edit_message_text(
                 chat_id = callbackQuery.message.chat.id,
-                message_id = callbackQuery.reply_to_message.message_id,
+                message_id = callbackQuery.message.message_id,
                 text = "`Downloading your pdf..⏳`"
             )
             
@@ -1449,7 +1449,7 @@ async def answer(client, callbackQuery):
                 percNo = 0
                 await bot.edit_message_text(
                     chat_id = callbackQuery.message.chat.id,
-                    message_id = callbackQuery.message.reply_to_message.message_id,
+                    message_id = callbackQuery.message.message_id,
                     text = f"`Total pages: {int(PAGENOINFO[callbackQuery.message.chat.id][2])+1 - int(PAGENOINFO[callbackQuery.message.chat.id][1])}..⏳`"
                 )
                 totalPgList = range(int(PAGENOINFO[callbackQuery.message.chat.id][1]), int(PAGENOINFO[callbackQuery.message.chat.id][2] + 1))
@@ -1458,7 +1458,7 @@ async def answer(client, callbackQuery):
                 for i in range(0, len(totalPgList), 10):
                     
                     pgList = totalPgList[i:i+10]
-                    os.mkdir(f'{callbackQuery.message.reply_to_message.message_id}/pgs')
+                    os.mkdir(f'{callbackQuery.message.message_id}/pgs')
                     
                     for pageNo in pgList:
                         page = doc.loadPage(pageNo-1)
@@ -1476,10 +1476,10 @@ async def answer(client, callbackQuery):
                             try:
                                 await bot.edit_message_text(
                                     chat_id = callbackQuery.message.chat.id,
-                                    message_id = callbackQuery.message.reply_to_message.message_id,
+                                    message_id = callbackQuery.message.message_id,
                                     text = f"`Canceled at {cnvrtpg}/{int((PAGENOINFO[callbackQuery.message.chat.id][2])+1 - int(PAGENOINFO[callbackQuery.message.chat.id][1]))} pages.. 🙄`"
                                 )
-                                shutil.rmtree(f'{callbackQuery.message.reply_to_message.message_id}')
+                                shutil.rmtree(f'{callbackQuery.message.message_id}')
                                 doc.close()
                                 return
                             
@@ -1487,9 +1487,9 @@ async def answer(client, callbackQuery):
                                 return
                         
                         with open(
-                            f'{callbackQuery.message.reply_to_message.message_id}/pgs/{pageNo}.jpg','wb'
+                            f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg','wb'
                         ):
-                            pix.writePNG(f'{callbackQuery.message.reply_to_message.message_id}/pgs/{pageNo}.jpg')
+                            pix.writePNG(f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg')
                         
                     await bot.edit_message_text(
                         chat_id = callbackQuery.message.chat.id,
@@ -1502,7 +1502,7 @@ async def answer(client, callbackQuery):
                     chat_id = callbackQuery.message.chat.id,
                     message_ids = callbackQuery.message.message_id
                     )"""
-                    directory = f'{callbackQuery.message.reply_to_message.message_id}/pgs'
+                    directory = f'{callbackQuery.message.message_id}/pgs'
                     imag = [os.path.join(directory, file) for file in os.listdir(directory)]
                     imag.sort(key=os.path.getctime)
                     
@@ -1515,7 +1515,7 @@ async def answer(client, callbackQuery):
                         if os.path.getsize(file) >= 1000000:
                             
                             picture = Image.open(file)
-                            CmpImg = f'{callbackQuery.message.reply_to_message.message_id}/pgs/temp{LrgFileNo}.jpeg'
+                            CmpImg = f'{callbackQuery.message.message_id}/pgs/temp{LrgFileNo}.jpeg'
                             picture.save(CmpImg, "JPEG", optimize=True, quality = 50) 
                             
                             LrgFileNo += 1
@@ -1552,7 +1552,7 @@ async def answer(client, callbackQuery):
                         if callbackQuery.message.chat.id not in PROCESS:
                             
                             try:
-                                shutil.rmtree(f'{callbackQuery.message.reply_to_message.message_id}')
+                                shutil.rmtree(f'{callbackQuery.message.message_id}')
                                 doc.close()
                                 return
                             
@@ -1578,7 +1578,7 @@ async def answer(client, callbackQuery):
                         
                         if callbackQuery.message.chat.id not in PROCESS:
                             try:
-                                shutil.rmtree(f'{callbackQuery.message.reply_to_message.message_id}')
+                                shutil.rmtree(f'{callbackQuery.message.message_id}')
                                 doc.close()
                                 return
                             
@@ -1598,7 +1598,7 @@ async def answer(client, callbackQuery):
                             del mediaDoc[callbackQuery.message.chat.id]
                             del media[callbackQuery.message.chat.id]
                         
-                    shutil.rmtree(f'{callbackQuery.message.reply_to_message.message_id}/pgs')
+                    shutil.rmtree(f'{callbackQuery.message.message_id}/pgs')
                 
                 PROCESS.remove(callbackQuery.message.chat.id)
                 del PAGENOINFO[callbackQuery.message.chat.id]
@@ -1609,7 +1609,7 @@ async def answer(client, callbackQuery):
                     message_id = callbackQuery.message.reply_to_message.message_id,
                     text = f'`Uploading Completed.. `🏌️'
                 )"""
-                shutil.rmtree(f'{callbackQuery.message.reply_to_message.message_id}')
+                shutil.rmtree(f'{callbackQuery.message.message_id}')
                 
                 sleep(2)
                 await bot.send_chat_action(
@@ -1626,7 +1626,7 @@ async def answer(client, callbackQuery):
                 
                 await bot.edit_message_text(
                     chat_id = callbackQuery.message.chat.id,
-                    message_id = callbackQuery.message.reply_to_message.message_id,
+                    message_id = callbackQuery.message.message_id,
                     text = f"`Fetching page Number:{PAGENOINFO[callbackQuery.message.chat.id][3]} 🤧`"
                 )
                 
@@ -1634,22 +1634,22 @@ async def answer(client, callbackQuery):
                 pix = page.getPixmap(matrix = mat)
                 await bot.edit_message_text(
                     chat_id = callbackQuery.message.chat.id,
-                    message_id = callbackQuery.message.reply_to_message.message_id,
+                    message_id = callbackQuery.message.message_id,
                     text = f"`Successfully Converted your page..✌️`"
                 )
                 
-                os.mkdir(f'{callbackQuery.message.reply_to_message.message_id}/pgs')
+                os.mkdir(f'{callbackQuery.message.message_id}/pgs')
                 
                 with open(
-                    f'{callbackQuery.message.reply_to_message.message_id}/pgs/{PAGENOINFO[callbackQuery.message.chat.id][3]}.jpg','wb'
+                    f'{callbackQuery.message.message_id}/pgs/{PAGENOINFO[callbackQuery.message.chat.id][3]}.jpg','wb'
                 ):
-                    pix.writePNG(f'{callbackQuery.message.reply_to_message.message_id}/pgs/{PAGENOINFO[callbackQuery.message.chat.id][3]}.jpg')
+                    pix.writePNG(f'{callbackQuery.message.message_id}/pgs/{PAGENOINFO[callbackQuery.message.chat.id][3]}.jpg')
                 
-                file = f'{callbackQuery.message.reply_to_message.message_id}/pgs/{PAGENOINFO[callbackQuery.message.chat.id][3]}.jpg'
+                file = f'{callbackQuery.message.message_id}/pgs/{PAGENOINFO[callbackQuery.message.chat.id][3]}.jpg'
                     
                 if os.path.getsize(file) >= 1000000:
                     picture = Image.open(file)
-                    CmpImg = f'{callbackQuery.message.reply_to_message.message_id}/pgs/temp{PAGENOINFO[callbackQuery.message.chat.id][3]}.jpeg'
+                    CmpImg = f'{callbackQuery.message.message_id}/pgs/temp{PAGENOINFO[callbackQuery.message.chat.id][3]}.jpeg'
                     
                     picture.save(
                         CmpImg,
@@ -1697,7 +1697,7 @@ async def answer(client, callbackQuery):
                 del PAGENOINFO[callbackQuery.message.chat.id]
                 doc.close()
                 
-                shutil.rmtree(f'{callbackQuery.message_id}')
+                shutil.rmtree(f'{callbackQuery.message.message_id}')
                 
                 sleep(5)
                 await bot.send_chat_action(
@@ -1713,10 +1713,10 @@ async def answer(client, callbackQuery):
             try:
                 await bot.edit_message_text(
                     chat_id = callbackQuery.message.chat.id,
-                    message_id = callbackQuery.message_id,
+                    message_id = callbackQuery.message.message_id,
                     text = Msgs.errorEditMsg.format(e)
                 )
-                shutil.rmtree(f'{callbackQuery.message_id}')
+                shutil.rmtree(f'{callbackQuery.message.message_id}')
                 PROCESS.remove(callbackQuery.message.chat.id)
                 doc.close()
             
@@ -1743,7 +1743,7 @@ async def answer(client, callbackQuery):
                 
                 await bot.edit_message_text(
                     chat_id = callbackQuery.message.chat.id,
-                    message_id = callbackQuery.message.reply_to_message.message_id,
+                    message_id = callbackQuery.message.message_id,
                     text = "Same work done before..🏃"
                 )
                 return
@@ -1752,7 +1752,7 @@ async def answer(client, callbackQuery):
             
             await bot.edit_message_text(
                 chat_id = callbackQuery.message.chat.id,
-                message_id = callbackQuery.message_id,
+                message_id = callbackQuery.message.message_id,
                 text = "`Downloading your pdf..⏳`"
             )
             
@@ -1782,12 +1782,12 @@ async def answer(client, callbackQuery):
                     await bot.send_document(
                         chat_id = callbackQuery.message.chat.id,
                         thumb = Config.PDF_THUMBNAIL,
-                        document = f"{callbackQuery.message_id}/split.pdf"
+                        document = f"{callbackQuery.message.message_id}/split.pdf"
                     )
                 
                 if edit == "asPdf":
                     
-                    splitInputPdf = PdfFileReader(f'{callbackQuery.message_id}/pdf.pdf')
+                    splitInputPdf = PdfFileReader(f'{callbackQuery.message.message_id}/pdf.pdf')
                     splitOutput = PdfFileWriter()
                     
                     splitOutput.addPage(
@@ -1796,7 +1796,7 @@ async def answer(client, callbackQuery):
                         )
                     )
                     
-                    with open(f"{callbackQuery.message_id}/split.pdf", "wb") as output_stream:
+                    with open(f"{callbackQuery.message.message_id}/split.pdf", "wb") as output_stream:
                         splitOutput.write(output_stream)
                         
                     await bot.send_document(
