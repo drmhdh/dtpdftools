@@ -5,7 +5,7 @@ pyrogram
 tgcrypto
 convertapi
 
-aiohttp
+#aiohttp
 beautifulsoup4
 hachoir
 numpy
