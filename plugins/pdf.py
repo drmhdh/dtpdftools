@@ -1189,9 +1189,7 @@ async def extract(bot, message):
                     ]
                 )
             )
-                                                
-            """except:
-                pass"""
+        
     except Exception:
         
         try:
@@ -1207,7 +1205,8 @@ async def answer(client: Client, callbackQuery: CallbackQuery):
     
     edit = callbackQuery.data
     
-    if edit == "strtDevEdt":
+    #if edit == "strtDevEdt":
+    if edit.startswith("strtDevEdt"):
         
         try:
             await callbackQuery.edit_message_text(
@@ -1238,7 +1237,8 @@ async def answer(client: Client, callbackQuery: CallbackQuery):
         except Exception:
             pass
         
-    elif edit == "imgsToPdfEdit":
+    #elif edit == "imgsToPdfEdit":
+    elif edit.startswith("imgsToPdfEdit"):
         
         try:
             await callbackQuery.edit_message_text(
@@ -1269,7 +1269,8 @@ async def answer(client: Client, callbackQuery: CallbackQuery):
         except Exception:
             pass
         
-    elif edit == "pdfToImgsEdit":
+    #elif edit == "pdfToImgsEdit":
+    elif edit.startswith("pdfToImgsEdit"):    
         
         try:
             await callbackQuery.edit_message_text(
@@ -1304,7 +1305,8 @@ async def answer(client: Client, callbackQuery: CallbackQuery):
         except Exception:
             pass
         
-    elif edit == "filsToPdfEdit":
+    #elif edit == "filsToPdfEdit":
+    elif edit.startswith("filsToPdfEdit"):    
         
         try:
             await callbackQuery.edit_message_text(
@@ -1339,7 +1341,8 @@ async def answer(client: Client, callbackQuery: CallbackQuery):
         except Exception:
             pass
         
-    elif edit == "warningEdit":
+    #elif edit == "warningEdit":
+    elif edit.startswith("warningEdit"):        
         
         try:
             await callbackQuery.edit_message_text(
@@ -1370,8 +1373,8 @@ async def answer(client: Client, callbackQuery: CallbackQuery):
         except Exception:
             pass
         
-    elif edit == "back":
-        
+    #elif edit == "back":
+    elif edit.startswith("back"):      
         try:
             await callbackQuery.edit_message_text(
                 Msgs.back2Start, disable_web_page_preview = True,
@@ -1401,7 +1404,8 @@ async def answer(client: Client, callbackQuery: CallbackQuery):
         except Exception:
             pass
     
-    elif edit == "close":
+    #elif edit == "close":
+    elif edit.startswith("close"):     
         
         try:
             await bot.delete_messages(
@@ -1414,6 +1418,7 @@ async def answer(client: Client, callbackQuery: CallbackQuery):
             pass
         
     elif edit in ["multipleImgAsImages", "multipleImgAsDocument", "asImages", "asDocument"]:
+    
         
         try:
             if (callbackQuery.message.chat.id in PROCESS) or (callbackQuery.message.chat.id not in PDF2IMG):
