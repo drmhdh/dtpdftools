@@ -29,15 +29,15 @@ logger = logging.getLogger(__name__)
 # logging.basicConfig(level=logging.INFO)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
-BOT = {}
+#BOT = {}
 # PYROGRAM INSTANCE 
-"""bot = Client(
+bot = Client(
     "pdf2img",
     parse_mode = "markdown",
     api_id = Config.API_ID,
     api_hash = Config.API_HASH,
     bot_token = Config.API_TOKEN
-)"""
+)
 
 # GLOBAL VARIABLES
 PDF = {}            # save images for generating pdf 
@@ -78,7 +78,7 @@ if Config.MAX_FILE_SIZE:
     MAX_FILE_SIZE_IN_kiB = MAX_FILE_SIZE * 10000
     
 # if message is an image
-@Client.on_message(filters.private & filters.photo)
+@bot.on_message(filters.private & filters.photo)
 async def images(bot, message):
     
     try:
@@ -120,7 +120,7 @@ async def images(bot, message):
     
  
 # if message is a document/file
-@Client.on_message(filters.command(["scan"])) #& filters.document  & filters.private
+@bot.on_message(filters.command(["scan"])) #& filters.document  & filters.private
 async def documents(bot, message):
     
     try:
@@ -460,7 +460,7 @@ async def documents(bot, message):
 
 
 # REPLY TO /start COMMAND
-@Client.on_message(filters.command(["start"]))
+@bot.on_message(filters.command(["start"]))
 async def start(bot, message):
     
     try:
@@ -547,7 +547,7 @@ async def start(bot, message):
     
     
 # /deletes : Deletes current Images to pdf Queue
-@Client.on_message(filters.command(["deletepdf"]))
+@bot.on_message(filters.command(["deletepdf"]))
 async def cancelI2P(bot, message):
     
     try:
@@ -569,7 +569,7 @@ async def cancelI2P(bot, message):
 
 
 # cancel current pdf to image Queue
-@Client.on_message(filters.command(["cancelpdf"]))
+@bot.on_message(filters.command(["cancelpdf"]))
 async def cancelP2I(bot, message):
     
     try:
@@ -588,7 +588,7 @@ async def cancelP2I(bot, message):
 
        
 # if message is a /feedback
-@Client.on_message(filters.command(["feedback"]))
+@bot.on_message(filters.command(["feedback"]))
 async def feedback(bot, message):
     
     try:
@@ -605,7 +605,7 @@ async def feedback(bot, message):
 
 
 # If message is /generate
-@Client.on_message(filters.command(["generate"]) & filters.private)
+@bot.on_message(filters.command(["generate"]) & filters.private)
 async def generate(bot, message):
     
     try:
@@ -688,7 +688,7 @@ async def generate(bot, message):
    
     
     
-@Client.on_message(filters.command(["extract"])) #& filters.user(ADMINS)
+@bot.on_message(filters.command(["extract"])) #& filters.user(ADMINS)
 async def extract(bot, message):        
     try:
         if message.chat.id in PROCESS:
@@ -1198,7 +1198,7 @@ async def extract(bot, message):
             pass
             
             
-@Client.on_callback_query()
+@bot.on_callback_query()
 async def answer(Client, CallbackQuery): 
     
     edit = CallbackQuery.data
