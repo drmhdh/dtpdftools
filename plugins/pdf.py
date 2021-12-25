@@ -122,7 +122,7 @@ async def images(bot, message):
     
  
 # if message is a document/file
-@Client.on_message(filters.command('scan') #& filters.document  & filters.private
+@Client.on_message(filters.command('scan')) #& filters.document  & filters.private
 async def documents(bot, message):
     
     try:
