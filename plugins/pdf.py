@@ -1192,7 +1192,7 @@ async def extract(bot, message):
             pass
             
 
-@bot.on_callback_query()
+@Client.on_callback_query()
 async def answer(client, callbackQuery): 
     
     edit = callbackQuery.data
