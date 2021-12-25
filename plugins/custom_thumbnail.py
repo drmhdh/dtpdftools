@@ -37,52 +37,52 @@ async def generate_custom_thumbnail(bot, update):
             revoke=True
         )
         return
-    If update.from_user.id, update.text, "generatecustomthumbnail":
-        if update.reply_to_message is not None:
-            reply_message = update.reply_to_message
-            if reply_message.media_group_id is not None:
-                download_location = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/" + str(reply_message.media_group_id) + "/"
-                save_final_image = download_location + str(round(time.time())) + ".jpg"
-                list_im = os.listdir(download_location)
-                if len(list_im) == 2:
-                    imgs = [ Image.open(download_location + i) for i in list_im ]
-                    inm_aesph = sorted([(numpy.sum(i.size), i.size) for i in imgs])
-                    min_shape = inm_aesph[1][1]
-                    imgs_comb = numpy.hstack(numpy.asarray(i.resize(min_shape)) for i in imgs)
-                    imgs_comb = Image.fromarray(imgs_comb)
-                    # combine: https://stackoverflow.com/a/30228789/4723940
-                    imgs_comb.save(save_final_image)
-                    # send
-                    await bot.send_photo(
-                        chat_id=update.chat.id,
-                        photo=save_final_image,
-                        caption=Translation.CUSTOM_CAPTION_UL_FILE,
-                        reply_to_message_id=update.message_id
-                    )
-                else:
-                    await bot.send_message(
-                        chat_id=update.chat.id,
-                        text=Translation.ERR_ONLY_TWO_MEDIA_IN_ALBUM,
-                        reply_to_message_id=update.message_id
-                    )
-                try:
-                    [os.remove(download_location + i) for i in list_im ]
-                    os.remove(download_location)
-                except:
-                    pass
+    #TRChatBase(update.from_user.id, update.text, "generatecustomthumbnail")
+    if update.reply_to_message is not None (update.from_user.id, update.text, "generatecustomthumbnail"):
+       
+        reply_message = update.reply_to_message
+        if reply_message.media_group_id is not None:
+            download_location = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/" + str(reply_message.media_group_id) + "/"
+            save_final_image = download_location + str(round(time.time())) + ".jpg"
+            list_im = os.listdir(download_location)
+            if len(list_im) == 2:
+                imgs = [ Image.open(download_location + i) for i in list_im ]
+                inm_aesph = sorted([(numpy.sum(i.size), i.size) for i in imgs])
+                min_shape = inm_aesph[1][1]
+                imgs_comb = numpy.hstack(numpy.asarray(i.resize(min_shape)) for i in imgs)
+                imgs_comb = Image.fromarray(imgs_comb)
+                # combine: https://stackoverflow.com/a/30228789/4723940
+                imgs_comb.save(save_final_image)
+                # send
+                await bot.send_photo(
+                    chat_id=update.chat.id,
+                    photo=save_final_image,
+                    caption=Translation.CUSTOM_CAPTION_UL_FILE,
+                    reply_to_message_id=update.message_id
+                )
             else:
                 await bot.send_message(
                     chat_id=update.chat.id,
-                    text=Translation.REPLY_TO_MEDIA_ALBUM_TO_GEN_THUMB,
+                    text=Translation.ERR_ONLY_TWO_MEDIA_IN_ALBUM,
                     reply_to_message_id=update.message_id
                 )
+            try:
+                [os.remove(download_location + i) for i in list_im ]
+                os.remove(download_location)
+            except:
+                pass
         else:
             await bot.send_message(
                 chat_id=update.chat.id,
                 text=Translation.REPLY_TO_MEDIA_ALBUM_TO_GEN_THUMB,
                 reply_to_message_id=update.message_id
             )
-
+    else:
+        await bot.send_message(
+            chat_id=update.chat.id,
+            text=Translation.REPLY_TO_MEDIA_ALBUM_TO_GEN_THUMB,
+            reply_to_message_id=update.message_id
+        )
 
 @Client.on_message(filters.photo)
 async def save_photo(bot, update):
