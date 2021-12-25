@@ -79,5 +79,5 @@ if __name__ == "__main__" :
         print("Bot stopped. Bye.")
 
 
-app = Bot()
-app.run()    
+#app = Bot()
+#app.run()    
