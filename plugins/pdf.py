@@ -1405,15 +1405,15 @@ async def answer(client, callbackQuery):
         
     elif edit in ["multipleImgAsImages", "multipleImgAsDocument", "asImages", "asDocument"]:            
         try:
-            if (callbackQuery.message.chat.id in PROCESS):                
+            if (callbackQuery.message.reply_to_message.chat.id in PROCESS):                
                 await bot.edit_message_text(
-                    chat_id = callbackQuery.message.chat.id,
-                    message_id = callbackQuery.message.message_id,
+                    chat_id = callbackQuery.message.reply_to_message.chat.id,
+                    message_id = callbackQuery.message.reply_to_message.message_id,
                     text = "Same work done before..🏃"
                 )
                 return
             
-            PROCESS.append(callbackQuery.message.chat.id)
+            PROCESS.append(callbackQuery.message.reply_to_message.chat.id)
             
             await bot.edit_message_text(
                 chat_id = callbackQuery.message.reply_to_message.chat.id,
