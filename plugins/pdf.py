@@ -1106,7 +1106,7 @@ async def extract(bot, message):
                 await bot.send_message(
                     message.reply_to_message.chat.id,
                     text = f"Extract images from `{PAGENOINFO[message.chat.id][1]}` to `{PAGENOINFO[message.chat.id][2]}` As:",
-                    reply_to_message_id =message.reply_to_mesage.message_id,
+                    reply_to_message_id =message.reply_to_mesage.reply_to_mesage.message_id,
                     disable_web_page_preview = True,
                     reply_markup = InlineKeyboardMarkup(
                         [
@@ -1134,7 +1134,7 @@ async def extract(bot, message):
                 await bot.send_message(                  
                     message.reply_to_message.chat.id,
                     text = f"Extract images from `{PAGENOINFO[message.chat.id][1]}` to `{PAGENOINFO[message.chat.id][2]}` As:",
-                    reply_to_message_id = message.reply_to_mesage.message_id,
+                    reply_to_message_id = message.reply_to_mesage.reply_to_mesage.message_id,
                     disable_web_page_preview = True,
                     reply_markup = InlineKeyboardMarkup(
                         [
@@ -1164,7 +1164,7 @@ async def extract(bot, message):
                 message.reply_to_message.chat.id,
                 text = f"Extract page number: `{PAGENOINFO[message.chat.id][3]}` As:",
                 disable_web_page_preview = True,
-                reply_to_message_id = message.reply_to_mesage.message_id,
+                reply_to_message_id = message.reply_to_mesage.reply_to_mesage.message_id,
                 reply_markup = InlineKeyboardMarkup(
                     [
                          [
