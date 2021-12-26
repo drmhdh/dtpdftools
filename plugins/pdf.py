@@ -804,8 +804,10 @@ async def extract(bot, message):
                             message.chat.id, "typing"
                         )
                 
-                        pdfMsgId = await message.reply_to_message.reply_text(
-                            Msgs.pdfReplyMsg.format(noOfPages) , 
+                        pdfMsgId = await bot.send_message(
+                            message.chat.id,
+                            Msgs.pdfReplyMsg.format(noOfPages), 
+                            reply_to_message_id = message.reply_tomessage.message_id
                             #text = f"Extract images from `{PAGENOINFO[message.chat.id][1]}` to `{PAGENOINFO[message.chat.id][2]}`:",
                             #reply_markup = ForceReply(),
                             #parse_mode = "md" 
