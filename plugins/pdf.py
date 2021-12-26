@@ -1422,7 +1422,7 @@ async def answer(client, callbackQuery):
             
             await bot.edit_message_text(
                 chat_id = callbackQuery.message.chat.id,
-                message_id = callbackQuery.message.message_id,
+                message_id = callbackQuery.fixpdfbut.message_id,
                 text = "`Downloading your pdf..⏳`"
             )
             
@@ -1478,7 +1478,7 @@ async def answer(client, callbackQuery):
                             try:
                                 await bot.edit_message_text(
                                     chat_id = callbackQuery.message.chat.id,
-                                    message_id = callbackQuery.message.message_id,
+                                    message_id = callbackQuery.fixpdfbut.message_id,
                                     text = f"`Canceled at {cnvrtpg}/{int((PAGENOINFO[callbackQuery.message.chat.id][2])+1 - int(PAGENOINFO[callbackQuery.message.chat.id][1]))} pages.. 🙄`"
                                 )
                                 shutil.rmtree(f'{callbackQuery.message.message_id}')
@@ -1495,7 +1495,7 @@ async def answer(client, callbackQuery):
                         
                     await bot.edit_message_text(
                         chat_id = callbackQuery.message.chat.id,
-                        message_id = callbackQuery.message.message_id,
+                        message_id = callbackQuery.fixpdfbut.message_id,
                         text = f"`Started  📤  from {cnvrtpg}'th 📃 \n⏳ This might take some Time` \n🙇 Trying to Extract 📜 `{PAGENOINFO[callbackQuery.message.chat.id][1]}` to `{PAGENOINFO[callbackQuery.message.chat.id][2]}`:"
                                
                     )
