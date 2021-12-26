@@ -1736,35 +1736,35 @@ async def answer(client, callbackQuery):
     elif edit in ["multipleImgAsPdf", "asPdf"]:
         
         try:
-            if (callbackQuery.message.chat.id in PROCESS):
+            if (callbackQuery.message.reply_to_message.chat.id in PROCESS):
                 
                 await bot.edit_message_text(
-                    chat_id = callbackQuery.message.chat.id,
-                    message_id = callbackQuery.message.message_id,
+                    chat_id = callbackQuery.message.reply_to_message.chat.id,
+                    message_id = callbackQuery.message.reply_to_message.message_id,
                     text = "Same work done before..🏃"
                 )
                 return
             
-            PROCESS.append(callbackQuery.message.chat.id)
+            PROCESS.append(callbackQuery.message.reply_to_message.chat.id)
             
             await bot.edit_message_text(
-                chat_id = callbackQuery.message.chat.id,
-                message_id = callbackQuery.message.message_id,
+                chat_id = callbackQuery.message.reply_to_message.chat.id,
+                message_id = callbackQuery.message.reply_to_message.message_id,
                 text = "`Downloading your pdf..⏳`"
             )
             
             await bot.download_media(
-                PDF2IMG[callbackQuery.message.chat.id],
-                f'{callbackQuery.message.message_id}/pdf.pdf'
+                PDF2IMG[callbackQuery.message.reply_to_message.chat.id],
+                f'{callbackQuery.message.reply_to_message.message_id}/pdf.pdf'
             )
             
-            del PDF2IMG[callbackQuery.message.chat.id]
-            del PDF2IMGPGNO[callbackQuery.message.chat.id]
+            del PDF2IMG[callbackQuery.message.reply_to_message.chat.id]
+            del PDF2IMGPGNO[callbackQuery.message.reply_to_message.chat.id]
             
             try:
                 if edit == "multipleImgAsPdf":
                     
-                    splitInputPdf = PdfFileReader(f'{callbackQuery.message.message_id}/pdf.pdf')
+                    splitInputPdf = PdfFileReader(f'{callbackQuery.message.reply_to_message.message_id}/pdf.pdf')
                     splitOutput = PdfFileWriter()
                     
                     for i in range(int(PAGENOINFO[callbackQuery.message.chat.id][1])-1, int(PAGENOINFO[callbackQuery.message.chat.id][2])):
@@ -1772,43 +1772,43 @@ async def answer(client, callbackQuery):
                             splitInputPdf.getPage(i)
                         )
                         
-                    file_path = f"{callbackQuery.message.message_id}/split.pdf"
+                    file_path = f"{callbackQuery.message.reply_to_message.message_id}/split.pdf"
                     with open(file_path, "wb") as output_stream:
                         splitOutput.write(output_stream)
                         
                     await bot.send_document(
-                        chat_id = callbackQuery.message.chat.id,
+                        chat_id = callbackQuery.message.reply_to_message.chat.id,
                         thumb = Config.PDF_THUMBNAIL,
-                        document = f"{callbackQuery.message.message_id}/split.pdf"
+                        document = f"{callbackQuery.message.reply_to_message.message_id}/split.pdf"
                     )
                 
                 if edit == "asPdf":
                     
-                    splitInputPdf = PdfFileReader(f'{callbackQuery.message.message_id}/pdf.pdf')
+                    splitInputPdf = PdfFileReader(f'{callbackQuery.message.reply_to_message.message_id}/pdf.pdf')
                     splitOutput = PdfFileWriter()
                     
                     splitOutput.addPage(
                         splitInputPdf.getPage(
-                            int(PAGENOINFO[callbackQuery.message.chat.id][3])-1
+                            int(PAGENOINFO[callbackQuery.message.reply_to_message.chat.id][3])-1
                         )
                     )
                     
-                    with open(f"{callbackQuery.message.message_id}/split.pdf", "wb") as output_stream:
+                    with open(f"{callbackQuery.message.reply_to_message.message_id}/split.pdf", "wb") as output_stream:
                         splitOutput.write(output_stream)
                         
                     await bot.send_document(
-                        chat_id = callbackQuery.message.chat.id,
+                        chat_id = callbackQuery.message.reply_to_message.chat.id,
                         thumb = Config.PDF_THUMBNAIL,
-                        document = f"{callbackQuery.message.message_id}/split.pdf"
+                        document = f"{callbackQuery.message.reply_to_message.message_id}/split.pdf"
                     )
                 
-                shutil.rmtree(f"{callbackQuery.message.message_id}")
-                PROCESS.remove(callbackQuery.message.chat.id)
-                del PAGENOINFO[callbackQuery.message.chat.id]
+                shutil.rmtree(f"{callbackQuery.message.reply_to_message.message_id}")
+                PROCESS.remove(callbackQuery.message.reply_to_message.chat.id)
+                del PAGENOINFO[callbackQuery.message.reply_to_message.chat.id]
                 
                 await bot.edit_message_text(
-                    chat_id = callbackQuery.message.chat.id,
-                    message_id = callbackQuery.message_id,
+                    chat_id = callbackQuery.message.reply_to_message.chat.id,
+                    message_id = callbackQuery.reply_to_message.message_id,
                     text = "`Uploading Completed..🤞`"
                 )
             
@@ -1816,13 +1816,13 @@ async def answer(client, callbackQuery):
                 
                 try:
                     await bot.edit_message_text(
-                        chat_id = callbackQuery.message.chat.id,
-                        message_id = callbackQuery.message.message_id,
+                        chat_id = callbackQuery.message.reply_to_message.chat.id,
+                        message_id = callbackQuery.message.reply_to_message.message_id,
                         text = Msgs.errorEditMsg.format(e)
                     )
-                    shutil.rmtree(f"{callbackQuery.message.message_id}")
-                    PROCESS.remove(callbackQuery.message.chat.id)
-                    del PAGENOINFO[callbackQuery.message.chat.id]
+                    shutil.rmtree(f"{callbackQuery.message.reply_to_message.message_id}")
+                    PROCESS.remove(callbackQuery.message.reply_to_message.chat.id)
+                    del PAGENOINFO[callbackQuery.message.reply_to_message.chat.id]
                 
                 except Exception:
                     pass
@@ -1831,13 +1831,13 @@ async def answer(client, callbackQuery):
             
             try:
                 await bot.edit_message_text(
-                    chat_id = callbackQuery.message.chat.id,
-                    message_id = callbackQuery.message.message_id,
+                    chat_id = callbackQuery.message.reply_to_message.chat.id,
+                    message_id = callbackQuery.message.reply_to_message.message_id,
                     text = Msgs.errorEditMsg.format(e)
                 )
                 shutil.rmtree(f"{callbackQuery.message.reply_to_message.message_id}")
-                PROCESS.remove(callbackQuery.message.chat.id)
-                del PAGENOINFO[callbackQuery.message.chat.id]
+                PROCESS.remove(callbackQuery.message.reply_to_message.chat.id)
+                del PAGENOINFO[callbackQuery.message.reply_to_message.chat.id]
                 
             except Exception:
                 pass
@@ -1845,36 +1845,36 @@ async def answer(client, callbackQuery):
     elif edit in ["txtFile", "txtMsg", "txtHtml", "txtJson"]:
         
         try:
-            if (callbackQuery.message.chat.id in PROCESS) or (callbackQuery.message.chat.id not in PDF2IMG):
+            if (callbackQuery.message.chat.id in PROCESS):
                 
                 await bot.edit_message_text(
-                    chat_id = callbackQuery.message.chat.id,
-                    message_id = callbackQuery.message.message_id,
+                    chat_id = callbackQuery.message.reply_to_message.chat.id,
+                    message_id = callbackQuery.message.reply_to_message.message_id,
                     text = "Same work done before..🏃"
                 )
                 return
                 
-            PROCESS.append(callbackQuery.message.chat.id)
+            PROCESS.append(callbackQuery.message.reply_to_message.chat.id)
             
             await bot.edit_message_text(
-                chat_id = callbackQuery.message.chat.id,
-                message_id = callbackQuery.message.message_id,
+                chat_id = callbackQuery.message.reply_to_message.chat.id,
+                message_id = callbackQuery.message.reply_to_message.message_id,
                 text = "`Downloading your pdf..⏳`"
             )
             
             await bot.download_media(
-                PDF2IMG[callbackQuery.message.chat.id],
-                f'{callbackQuery.message_id}/pdf.pdf'
+                PDF2IMG[callbackQuery.message.reply_to_message.chat.id],
+                f'{callbackQuery.message.reply_to_message.message_id}/pdf.pdf'
             )
             
-            del PDF2IMG[callbackQuery.message.chat.id]
-            del PDF2IMGPGNO[callbackQuery.message.chat.id]
+            del PDF2IMG[callbackQuery.message.reply_to_message.chat.id]
+            del PDF2IMGPGNO[callbackQuery.message.reply_to_message.chat.id]
             
-            doc = fitz.open(f'{callbackQuery.message_id}/pdf.pdf') # open document
+            doc = fitz.open(f'{callbackQuery.message.reply_to_message.message_id}/pdf.pdf') # open document
             
             if edit == "txtFile":
                 
-                out = open(f'{callbackQuery.message_id}/pdf.txt', "wb") # open text output
+                out = open(f'{callbackQuery.message.reply_to_message.message_id}/pdf.txt', "wb") # open text output
                 for page in doc:                               # iterate the document pages
                     text = page.get_text().encode("utf8")      # get plain text (is in UTF-8)
                     out.write(text)                            # write text of page()
@@ -1882,12 +1882,12 @@ async def answer(client, callbackQuery):
                 out.close()
                 
                 await bot.send_chat_action(
-                    callbackQuery.message.chat.id, "upload_document"
+                    callbackQuery.message.reply_to_message.chat.id, "upload_document"
                 )
                 
-                sendfile = open(f"{callbackQuery.message_id}/pdf.txt",'rb')
+                sendfile = open(f"{callbackQuery.message.reply_to_message.message_id}/pdf.txt",'rb')
                 await bot.send_document(
-                    chat_id = callbackQuery.message.chat.id,
+                    chat_id = callbackQuery.message.reply_to_message.chat.id,
                     thumb = Config.PDF_THUMBNAIL,
                     document = sendfile
                 )
@@ -1904,10 +1904,10 @@ async def answer(client, callbackQuery):
                             
                             try:
                                 await bot.send_chat_action(
-                                    callbackQuery.message.chat.id, "typing"
+                                    callbackQuery.message.reply_to_message.chat.id, "typing"
                                 )
                                 await bot.send_message(
-                                    callbackQuery.message.chat.id, pdfText
+                                    callbackQuery.message.reply_to_message.chat.id, pdfText
                                 )
                                 
                             except Exception:
@@ -1915,7 +1915,7 @@ async def answer(client, callbackQuery):
             
             if edit == "txtHtml":
                 
-                out = open(f'{callbackQuery.message_id}/pdf.html', "wb") # open text output
+                out = open(f'{callbackQuery.message.reply_to_message.message_id}/pdf.html', "wb") # open text output
                 
                 for page in doc:                                     # iterate the document pages
                     text = page.get_text("html").encode("utf8")      # get plain text as html(is in UTF-8)
@@ -1927,10 +1927,10 @@ async def answer(client, callbackQuery):
                     callbackQuery.message.chat.id, "upload_document"
                 )
                 
-                sendfile = open(f"{callbackQuery.message_id}/pdf.html",'rb')
+                sendfile = open(f"{callbackQuery.message.reply_to_message.message_id}/pdf.html",'rb')
                 
                 await bot.send_document(
-                    chat_id = callbackQuery.message.chat.id,
+                    chat_id = callbackQuery.message.reply_to_message.chat.id,
                     thumb = Config.PDF_THUMBNAIL,
                     document = sendfile
                 )
@@ -1939,7 +1939,7 @@ async def answer(client, callbackQuery):
             
             if edit == "txtJson":
                 
-                out = open(f'{callbackQuery.message.message_id}/pdf.json', "wb") # open text output
+                out = open(f'{callbackQuery.message.reply_to_message.message_id}/pdf.json', "wb") # open text output
                 
                 for page in doc:                                    # iterate the document pages
                     text = page.get_text("json").encode("utf8")     # get plain text as html(is in UTF-8)
@@ -1948,12 +1948,12 @@ async def answer(client, callbackQuery):
                 out.close()
                 
                 await bot.send_chat_action(
-                    callbackQuery.message.chat.id, "upload_document"
+                    callbackQuery.message.reply_to_message.chat.id, "upload_document"
                 )
                 
-                sendfile = open(f"{callbackQuery.message.message_id}/pdf.json", 'rb')
+                sendfile = open(f"{callbackQuery.message.reply_to_message.message_id}/pdf.json", 'rb')
                 await bot.send_document(
-                    chat_id = callbackQuery.message.chat.id,
+                    chat_id = callbackQuery.message.reply_to_message.chat.id,
                     thumb = Config.PDF_THUMBNAIL,
                     document = sendfile
                 )
@@ -1961,23 +1961,23 @@ async def answer(client, callbackQuery):
                 sendfile.close()
             
             await bot.edit_message_text(
-                chat_id = callbackQuery.message.chat.id,
-                message_id = callbackQuery.message.message_id,
+                chat_id = callbackQuery.message.reply_to_message.chat.id,
+                message_id = callbackQuery.message.reply_to_message.message_id,
                 text = "`Completed my task..😉`"
             )
             
-            PROCESS.remove(callbackQuery.message.chat.id)
-            shutil.rmtree(f'{callbackQuery.message.message_id}')
+            PROCESS.remove(callbackQuery.message.reply_to_message.chat.id)
+            shutil.rmtree(f'{callbackQuery.message.reply_to_message.message_id}')
             
         except Exception as e:
             
             try:
                 await bot.send_message(
-                    callbackQuery.message.chat.id,
+                    callbackQuery.message.reply_to_message.chat.id,
                     Msgs.errorEditMsg.format(e)
                 )
-                shutil.rmtree(f'{callbackQuery.message_id}')
-                PROCESS.remove(callbackQuery.message.chat.id)
+                shutil.rmtree(f'{callbackQuery.message.reply_to_message.message_id}')
+                PROCESS.remove(callbackQuery.message.reply_to_message.chat.id)
                 doc.close()
             
             except Exception:
@@ -1988,15 +1988,15 @@ async def answer(client, callbackQuery):
         try:
             await bot.get_chat_member(
                 str(Config.UPDATE_CHANNEL),
-                callbackQuery.message.chat.id
+                callbackQuery.message.reply_to_message.chat.id
             )
             
             await bot.edit_message_text(
-                chat_id = callbackQuery.message.chat.id,
-                message_id = callbackQuery.message.message_id,
+                chat_id = callbackQuery.message.reply_to_message.chat.id,
+                message_id = callbackQuery.message.reply_to_message.message_id,
                 text = Msgs.welcomeMsg.format(
                     callbackQuery.from_user.first_name,
-                    callbackQuery.message.chat.id
+                    callbackQuery.message.reply_to_message.chat.id
                 ),
                 disable_web_page_preview = True,
                 reply_markup = InlineKeyboardMarkup(
