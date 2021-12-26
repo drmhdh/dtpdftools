@@ -1103,7 +1103,7 @@ async def extract(bot, message):
         if PAGENOINFO[message.chat.id][0] == False:
                 
             if pageStartAndEnd[0] == "/extract":
-                await bot.send_message(
+                fixpdfbut = await bot.send_message(
                     message.reply_to_message.chat.id,
                     text = f"Extract images from `{PAGENOINFO[message.chat.id][1]}` to `{PAGENOINFO[message.chat.id][2]}` As:",
                     reply_to_message_id = mypdfmod,  
@@ -1131,7 +1131,7 @@ async def extract(bot, message):
                 )
                 
             else:
-                await bot.send_message(                  
+                 fixpdfbut = await bot.send_message(                  
                     message.reply_to_message.chat.id,
                     text = f"Extract images from `{PAGENOINFO[message.chat.id][1]}` to `{PAGENOINFO[message.chat.id][2]}` As:", 
                     reply_to_message_id = mypdfmod,
@@ -1160,7 +1160,7 @@ async def extract(bot, message):
                 
         if PAGENOINFO[message.chat.id][0] == True:
                 
-            await bot.send_message(
+             fixpdfbut = await bot.send_message(
                 message.reply_to_message.chat.id,
                 text = f"Extract page number: `{PAGENOINFO[message.chat.id][3]}` As:",
                 reply_to_message_id = mypdfmod,
