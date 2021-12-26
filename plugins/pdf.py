@@ -811,8 +811,8 @@ async def extract(bot, message):
                             #parse_mode = "md" 
                         )
                    
-                        doc.close()
-                        shutil.rmtree(f'{message.reply_to_message.message_id}')
+                        #doc.close()
+                        #shutil.rmtree(f'{message.reply_to_message.message_id}')
              
                     except Exception as e:
                 
@@ -1102,8 +1102,9 @@ async def extract(bot, message):
                 
             if pageStartAndEnd[0] == "/extract":
                 await bot.send_message(
-                    message.chat.id,
+                    message.reply_to_message.chat.id,
                     text = f"Extract images from `{PAGENOINFO[message.chat.id][1]}` to `{PAGENOINFO[message.chat.id][2]}` As:",
+                    reply_to_message_id = message.message_id,
                     disable_web_page_preview = True,
                     reply_markup = InlineKeyboardMarkup(
                         [
@@ -1128,9 +1129,10 @@ async def extract(bot, message):
                 )
                 
             else:
-                await bot.send_message(
-                    message.chat.id,
+                await bot.send_message(                  
+                    message.reply_to_message.chat.id,
                     text = f"Extract images from `{PAGENOINFO[message.chat.id][1]}` to `{PAGENOINFO[message.chat.id][2]}` As:",
+                    reply_to_message_id = message.message_id,
                     disable_web_page_preview = True,
                     reply_markup = InlineKeyboardMarkup(
                         [
@@ -1157,9 +1159,10 @@ async def extract(bot, message):
         if PAGENOINFO[message.chat.id][0] == True:
                 
             await bot.send_message(
-                message.chat.id,
+                message.reply_to_message.chat.id,
                 text = f"Extract page number: `{PAGENOINFO[message.chat.id][3]}` As:",
                 disable_web_page_preview = True,
+                reply_to_message_id = message.message_id,
                 reply_markup = InlineKeyboardMarkup(
                     [
                          [
