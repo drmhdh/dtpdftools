@@ -1420,10 +1420,11 @@ async def answer(client, callbackQuery):
             
             PROCESS.append(callbackQuery.message.chat.id)
             
-            await bot.edit_message_text(
-                chat_id = callbackQuery.message.chat.id,
-                message_id = callbackQuery.fixpdfbut.message_id,
-                text = "`Downloading your pdf..⏳`"
+            await fixpdfbut.edit(
+                #chat_id = callbackQuery.message.chat.id,
+                #message_id = callbackQuery.fixpdfbut.message_id,
+                #text = "`Downloading your pdf..⏳`"
+                "`Downloading your pdf..⏳`"
             )
             
             await bot.download_media(
