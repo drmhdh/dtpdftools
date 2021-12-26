@@ -1411,7 +1411,7 @@ async def answer(client, callbackQuery):
     elif edit in ["multipleImgAsImages", "multipleImgAsDocument", "asImages", "asDocument"]:            
         try:
             if (callbackQuery.mypdfmod in PROCESS):                
-                await callbackQuery.edit_message_text(
+                await bot.edit_message_text(
                     #chat_id = callbackQuery.message.chat.id,
                     #message_id = callbackQuery.message.message_id,
                     text = "Same work done before..🏃"
@@ -1420,7 +1420,7 @@ async def answer(client, callbackQuery):
             
             PROCESS.append(callbackQuery.message.chat.id)
             
-            await callbackQuery.edit_message_text(
+            await bot.edit_message_text(
                 #chat_id = callbackQuery.message.chat.id,
                 #message_id = callbackQuery.fixpdfbut.message_id,
                 #text = "`Downloading your pdf..⏳`"
