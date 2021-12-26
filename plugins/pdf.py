@@ -700,7 +700,7 @@ async def extract(bot, message):
                 await bot.send_chat_action(
                     message.chat.id, "typing"
                 )
-            
+                mypdfmod = message.reply_to_message.message_id
                 isPdfOrImg = message.reply_to_message.document.file_name
                 fileSize = message.reply_to_message.document.file_size
                 fileNm, fileExt = os.path.splitext(isPdfOrImg)
@@ -1105,7 +1105,8 @@ async def extract(bot, message):
             if pageStartAndEnd[0] == "/extract":
                 await bot.send_message(
                     message.reply_to_message.chat.id,
-                    text = f"Extract images from `{PAGENOINFO[message.chat.id][1]}` to `{PAGENOINFO[message.chat.id][2]}` As:",                   
+                    text = f"Extract images from `{PAGENOINFO[message.chat.id][1]}` to `{PAGENOINFO[message.chat.id][2]}` As:",
+                    reply_to_message_id = mypdfmod,  
                     disable_web_page_preview = True,
                     reply_markup = InlineKeyboardMarkup(
                         [
@@ -1132,7 +1133,8 @@ async def extract(bot, message):
             else:
                 await bot.send_message(                  
                     message.reply_to_message.chat.id,
-                    text = f"Extract images from `{PAGENOINFO[message.chat.id][1]}` to `{PAGENOINFO[message.chat.id][2]}` As:",                   
+                    text = f"Extract images from `{PAGENOINFO[message.chat.id][1]}` to `{PAGENOINFO[message.chat.id][2]}` As:", 
+                    reply_to_message_id = mypdfmod,
                     disable_web_page_preview = True,
                     reply_markup = InlineKeyboardMarkup(
                         [
@@ -1161,6 +1163,7 @@ async def extract(bot, message):
             await bot.send_message(
                 message.reply_to_message.chat.id,
                 text = f"Extract page number: `{PAGENOINFO[message.chat.id][3]}` As:",
+                reply_to_message_id = mypdfmod,
                 disable_web_page_preview = True,
                 reply_markup = InlineKeyboardMarkup(
                     [
