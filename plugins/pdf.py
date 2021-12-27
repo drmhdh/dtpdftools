@@ -1410,8 +1410,8 @@ async def answer(client, callbackQuery):
         
     elif edit in ["multipleImgAsImages", "multipleImgAsDocument", "asImages", "asDocument"]:            
         try:
-            if (bot.mypdfmod in PROCESS):                
-                await bot.send_message(
+            if (callbackQuery.message.message_id in PROCESS):                
+                await callbackQuery.send_message(
                     chat_id = callbackQuery.message.chat.id,
                     message_id = callbackQuery.message.message_id,
                     text = "Same work done before..🏃"
@@ -1420,7 +1420,7 @@ async def answer(client, callbackQuery):
             
             PROCESS.append(callbackQuery.message.chat.id)
             
-            await bot.send_message(
+            await callbackQuery.send_message(
                 chat_id = callbackQuery.message.chat.id,
                 message_id = callbackQuery.fixpdfbut.message_id,
                 text = "`Downloading your pdf..⏳`"
@@ -1479,7 +1479,7 @@ async def answer(client, callbackQuery):
                             try:
                                 await bot.edit_message_text(
                                     chat_id = callbackQuery.message.chat.id,
-                                    message_id = callbackQuery.fixpdfbut.message_id,
+                                    message_id = callbackQuery.message.message_id,
                                     text = f"`Canceled at {cnvrtpg}/{int((PAGENOINFO[callbackQuery.message.chat.id][2])+1 - int(PAGENOINFO[callbackQuery.message.chat.id][1]))} pages.. 🙄`"
                                 )
                                 shutil.rmtree(f'{callbackQuery.message.message_id}')
