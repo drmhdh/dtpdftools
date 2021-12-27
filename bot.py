@@ -29,7 +29,7 @@ class Bot(Client):
             api_hash=Config.API_HASH,
             bot_token=Config.API_TOKEN,
             workers=50,
-            plugins={"root": "plugins", "pdf"},
+            plugins={"root": "plugins"},
             sleep_threshold=5,
         )
 
