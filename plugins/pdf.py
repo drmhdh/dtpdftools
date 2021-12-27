@@ -1103,7 +1103,7 @@ async def extract(bot, message):
         if PAGENOINFO[message.chat.id][0] == False:
                 
             if pageStartAndEnd[0] == "/extract":
-                fixpdfbut = await bot.send_message(
+                await bot.send_message(
                     message.reply_to_message.chat.id,
                     text = f"Extract images from `{PAGENOINFO[message.chat.id][1]}` to `{PAGENOINFO[message.chat.id][2]}` As:",
                     reply_to_message_id = mypdfmod,  
@@ -1131,7 +1131,7 @@ async def extract(bot, message):
                 )
                 
             else:
-                 fixpdfbut = await bot.send_message(                  
+                await bot.send_message(                  
                     message.reply_to_message.chat.id,
                     text = f"Extract images from `{PAGENOINFO[message.chat.id][1]}` to `{PAGENOINFO[message.chat.id][2]}` As:", 
                     reply_to_message_id = mypdfmod,
@@ -1160,7 +1160,7 @@ async def extract(bot, message):
                 
         if PAGENOINFO[message.chat.id][0] == True:
                 
-             fixpdfbut = await bot.send_message(
+            await bot.send_message(
                 message.reply_to_message.chat.id,
                 text = f"Extract page number: `{PAGENOINFO[message.chat.id][3]}` As:",
                 reply_to_message_id = mypdfmod,
@@ -1198,14 +1198,21 @@ async def extract(bot, message):
             
 
 @Client.on_callback_query()
-async def answer(client, callbackQuery): 
+async def answer(client: Client, query: CallbackQuery): 
     
-    edit = callbackQuery.data
     
-    if edit == "strtDevEdt":
+    clicked = query.from_user.id
+    try:
+        typed = query.message.reply_to_message.from_user.id
+    except:
+        typed = query.from_user.id
+        pass
+    if (clicked == typed) or (clicked in AUTH_USERS) or (clicked in ADMINS): 
+    
+        if query.data == "strtDevEdt":
         
         try:
-            await callbackQuery.edit_message_text(
+                await query.message.edit_text(
                 Msgs.aboutDev, disable_web_page_preview = True,
                 reply_markup = InlineKeyboardMarkup(
                     [
@@ -1233,10 +1240,10 @@ async def answer(client, callbackQuery):
         except Exception:
             pass
         
-    elif edit == "imgsToPdfEdit":
+    elif query.data == "imgsToPdfEdit":
         
         try:
-            await callbackQuery.edit_message_text(
+            await query.message.edit_text(
                 Msgs.I2PMsg, disable_web_page_preview = True,
                 reply_markup = InlineKeyboardMarkup(
                     [
@@ -1264,10 +1271,10 @@ async def answer(client, callbackQuery):
         except Exception:
             pass
         
-    elif edit == "pdfToImgsEdit": 
+    elif query.data == "pdfToImgsEdit": 
         
         try:
-            await callbackQuery.edit_message_text(
+            await query.message.edit_text(
                 Msgs.P2IMsg, disable_web_page_preview = True,
                 reply_markup = InlineKeyboardMarkup(
                     [
@@ -1299,10 +1306,10 @@ async def answer(client, callbackQuery):
         except Exception:
             pass
         
-    elif edit == "filsToPdfEdit":   
+    elif query.data == "filsToPdfEdit":   
         
         try:
-            await callbackQuery.edit_message_text(
+            await query.message.edit_text(
                 Msgs.F2PMsg, disable_web_page_preview = True,
                 reply_markup = InlineKeyboardMarkup(
                     [
@@ -1334,10 +1341,10 @@ async def answer(client, callbackQuery):
         except Exception:
             pass
         
-    elif edit == "warningEdit":      
+    elif query.data == "warningEdit":      
         
         try:
-            await callbackQuery.edit_message_text(
+            await query.message.edit_text(
                 Msgs.warningMessage, disable_web_page_preview = True,
                 reply_markup = InlineKeyboardMarkup(
                     [
@@ -1365,9 +1372,9 @@ async def answer(client, callbackQuery):
         except Exception:
             pass
         
-    elif edit == "back":  
+    elif query.data == "back":  
         try:
-            await callbackQuery.edit_message_text(
+            await query.message.edit_text(
                 Msgs.back2Start, disable_web_page_preview = True,
                 reply_markup = InlineKeyboardMarkup(
                     [
@@ -1395,13 +1402,13 @@ async def answer(client, callbackQuery):
         except Exception:
             pass
     
-    elif edit == "close": 
+    elif query.data == "close": 
         
         try:
-            await callbackQuery.message.delete()
+            await query.message.delete()
             await bot.delete_messages(
-                chat_id = callbackQuery.message.chat.id,
-                message_ids = callbackQuery.message.message_id
+                chat_id = query.message.chat.id,
+                message_ids = query.message.message_id
             )
             return
         
@@ -1410,26 +1417,25 @@ async def answer(client, callbackQuery):
         
     elif edit in ["multipleImgAsImages", "multipleImgAsDocument", "asImages", "asDocument"]:            
         try:
-            if (callbackQuery.message.message_id in PROCESS):                
-                await callbackQuery.send_message(
-                    chat_id = callbackQuery.message.chat.id,
-                    message_id = callbackQuery.message.message_id,
+            if (query.message.message_id in PROCESS):                
+                await query.message.edit_text(
+                    chat_id = query.message.chat.id,
+                    message_id = query.message.message_id,
                     text = "Same work done before..🏃"
                 )
                 return
             
-            PROCESS.append(callbackQuery.message.chat.id)
+            PROCESS.append(query.message.chat.id)
             
-            await callbackQuery.send_message(
-                chat_id = callbackQuery.message.chat.id,
-                message_id = callbackQuery.fixpdfbut.message_id,
-                text = "`Downloading your pdf..⏳`"
-                #"`Downloading your pdf..⏳`"
+            await query.message.edit_text(
+                chat_id = query.message.chat.id,
+                message_id = query.fixpdfbut.message_id,
+                text = "`Downloading your pdf..⏳`"           
             )
             
             await bot.download_media(
-                PDF2IMG[callbackQuery.message.chat.id],
-                f'{callbackQuery.mypdfmod}/pdf.pdf'
+                PDF2IMG[query.message.chat.id],
+                f'{query.mypdfmod}/pdf.pdf'
             )
             
             del PDF2IMG[callbackQuery.message.chat.id]
