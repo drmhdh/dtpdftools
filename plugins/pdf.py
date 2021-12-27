@@ -1731,20 +1731,20 @@ async def answer(client: Client, query: CallbackQuery):
         elif edit in ["multipleImgAsPdf", "asPdf"]:
         
             try:
-                if (query.message.reply_to_message.chat.id in PROCESS):
+                if (query.message.reply_to_message.chat.id in PROCESS) or (callbackQuery.message.chat.id in PDF2IMG):
                 
                     await bot.edit_message_text(
-                        chat_id = query.message.reply_to_message.chat.id,
-                        message_id = query.message.reply_to_message.message_id,
+                        chat_id = query.message.chat.id,
+                        message_id = query.message.message_id,
                         text = "Same work done before..🏃"
                     )
                     return
             
-                PROCESS.append(callbackQuery.message.reply_to_message.chat.id)
+                PROCESS.append(callbackQuery.message.chat.id)
             
                 await bot.edit_message_text(
-                    chat_id = callbackQuery.message.reply_to_message.chat.id,
-                    message_id = callbackQuery.message.reply_to_message.message_id,
+                    chat_id = callbackQuery.message.chat.id,
+                    message_id = callbackQuery.message.message_id,
                     text = "`Downloading your pdf..⏳`"
                 )
             
