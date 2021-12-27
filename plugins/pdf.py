@@ -1415,7 +1415,7 @@ async def answer(client: Client, query: CallbackQuery):
             except Exception:
                 pass
         
-        elif edit in ["multipleImgAsImages", "multipleImgAsDocument", "asImages", "asDocument"]:            
+        elif query.data in ["multipleImgAsImages", "multipleImgAsDocument", "asImages", "asDocument"]:            
             try:
                 if (query.message.message_id in PROCESS):                
                     await query.message.edit_text(
@@ -1438,57 +1438,41 @@ async def answer(client: Client, query: CallbackQuery):
                     f'{query.mypdfmod}/pdf.pdf'
                 )
             
-                del PDF2IMG[callbackQuery.message.chat.id]
-                del PDF2IMGPGNO[callbackQuery.message.chat.id]
+                del PDF2IMG[query.message.chat.id]
+                del PDF2IMGPGNO[query.message.chat.id]
             
-                doc = fitz.open(f'{callbackQuery.message.message_id}/pdf.pdf')
+                doc = fitz.open(f'{query.message.message_id}/pdf.pdf')
                 zoom = 1
                 mat = fitz.Matrix(zoom, zoom)
             
-                if edit == "multipleImgAsImages" or edit == "multipleImgAsDocument":
-                
-                    #if int(int(PAGENOINFO[callbackQuery.message.chat.id][2])+1 - int(PAGENOINFO[callbackQuery.message.chat.id][1])) >= 11:
-                        #await bot.pin_chat_message(
-                            #chat_id = callbackQuery.message.chat.id,
-                            #message_id = callbackQuery.message.message_id,
-                            #disable_notification = True,
-                            #both_sides = True
-                        #)
-                
+                if edit == "multipleImgAsImages" or edit == "multipleImgAsDocument":                
                     percNo = 0
                     await bot.edit_message_text(
-                        chat_id = callbackQuery.message.chat.id,
-                        message_id = callbackQuery.message.message_id,
-                        text = f"`Total pages: {int(PAGENOINFO[callbackQuery.message.chat.id][2])+1 - int(PAGENOINFO[callbackQuery.message.chat.id][1])}..⏳`"
+                        chat_id = query.message.chat.id,
+                        message_id = query.message.message_id,
+                        text = f"`Total pages: {int(PAGENOINFO[query.message.chat.id][2])+1 - int(PAGENOINFO[query.message.chat.id][1])}..⏳`"
                     )
-                    totalPgList = range(int(PAGENOINFO[callbackQuery.message.chat.id][1]), int(PAGENOINFO[callbackQuery.message.chat.id][2] + 1))
+                    totalPgList = range(int(PAGENOINFO[query.message.chat.id][1]), int(PAGENOINFO[query.message.chat.id][2] + 1))
                 
                     cnvrtpg = 0
                     for i in range(0, len(totalPgList), 10):
                     
                         pgList = totalPgList[i:i+10]
-                        os.mkdir(f'{callbackQuery.message.message_id}/pgs')
+                        os.mkdir(f'{query.message.message_id}/pgs')
                     
                         for pageNo in pgList:
                             page = doc.loadPage(pageNo-1)
                             pix = page.getPixmap(matrix = mat)
                             cnvrtpg += 1
-                        
-                            #await bot.edit_message_text(
-                                #chat_id = callbackQuery.message.chat.id,
-                                #message_id = callbackQuery.message.message_id,
-                                #text = f"`Converted: {cnvrtpg}/{int((PAGENOINFO[callbackQuery.message.chat.id][2])+1 - int(PAGENOINFO[callbackQuery.message.chat.id][1]))} pages.. 🤞`"
-                            #)
-                        
-                            if callbackQuery.message.chat.id not in PROCESS:
-                            
+                                                                          
+                            if query.message.chat.id not in PROCESS:                           
                                 try:
                                     await bot.edit_message_text(
-                                        chat_id = callbackQuery.message.chat.id,
-                                        message_id = callbackQuery.message.message_id,
-                                        text = f"`Canceled at {cnvrtpg}/{int((PAGENOINFO[callbackQuery.message.chat.id][2])+1 - int(PAGENOINFO[callbackQuery.message.chat.id][1]))} pages.. 🙄`"
+                                        chat_id = query.message.chat.id,
+                                        message_id = query.message.message_id,
+                                        text = f"`Canceled at {cnvrtpg}/{int((PAGENOINFO[query.message.chat.id][2])+1 - int(PAGENOINFO[query.message.chat.id][1]))} pages.. 🙄`"
                                     )
-                                    shutil.rmtree(f'{callbackQuery.message.message_id}')
+                                    shutil.rmtree(f'{query.message.message_id}')
                                     doc.close()
                                     return
                             
@@ -1496,13 +1480,13 @@ async def answer(client: Client, query: CallbackQuery):
                                     return
                         
                             with open(
-                                f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg','wb'
+                                f'{query.message.message_id}/pgs/{pageNo}.jpg','wb'
                             ):
-                                pix.writePNG(f'{callbackQuery.message.message_id}/pgs/{pageNo}.jpg')
+                                pix.writePNG(f'{query.message.message_id}/pgs/{pageNo}.jpg')
                         
                         await bot.edit_message_text(
-                            chat_id = callbackQuery.message.chat.id,
-                            message_id = callbackQuery.fixpdfbut.message_id,
+                            chat_id = query.message.chat.id,
+                            message_id = query.fixpdfbut.message_id,
                             text = f"`Started  📤  from {cnvrtpg}'th 📃 \n⏳ This might take some Time` \n🙇 Trying to Extract 📜 `{PAGENOINFO[callbackQuery.message.chat.id][1]}` to `{PAGENOINFO[callbackQuery.message.chat.id][2]}`:"
                                
                         )
@@ -1511,20 +1495,20 @@ async def answer(client: Client, query: CallbackQuery):
                         chat_id = callbackQuery.message.chat.id,
                         message_ids = callbackQuery.message.message_id
                         )"""
-                        directory = f'{callbackQuery.message.message_id}/pgs'
+                        directory = f'{query.message.message_id}/pgs'
                         imag = [os.path.join(directory, file) for file in os.listdir(directory)]
                         imag.sort(key=os.path.getctime)
                     
                         percNo = percNo + len(imag)
-                        media[callbackQuery.message.chat.id] = []
-                        mediaDoc[callbackQuery.message.chat.id] = []
+                        media[query.message.chat.id] = []
+                        mediaDoc[query.message.chat.id] = []
                         LrgFileNo = 1
                     
                         for file in imag:
                             if os.path.getsize(file) >= 1000000:
                             
                                 picture = Image.open(file)
-                                CmpImg = f'{callbackQuery.message.message_id}/pgs/temp{LrgFileNo}.jpeg'
+                                CmpImg = f'{query.message.message_id}/pgs/temp{LrgFileNo}.jpeg'
                                 picture.save(CmpImg, "JPEG", optimize=True, quality = 50) 
                             
                                 LrgFileNo += 1
@@ -1534,34 +1518,34 @@ async def answer(client: Client, query: CallbackQuery):
                             
                                 else:
                                     media[
-                                        callbackQuery.message.chat.id
+                                        query.message.chat.id
                                     ].append(
                                         InputMediaPhoto(media = file)
                                     )
                                     mediaDoc[
-                                        callbackQuery.message.chat.id
+                                        query.message.chat.id
                                     ].append(
                                         InputMediaDocument(media = file)
                                     )
                                     continue
                         
                             media[
-                                callbackQuery.message.chat.id
+                                query.message.chat.id
                             ].append(
                                 InputMediaPhoto(media = file)
                             )
                             mediaDoc[
-                                callbackQuery.message.chat.id
+                                query.message.chat.id
                             ].append(
                                 InputMediaDocument(media = file)
                             )
                     
                         if edit == "multipleImgAsImages":
                         
-                            if callbackQuery.message.chat.id not in PROCESS:
+                            if query.message.chat.id not in PROCESS:
                             
                                 try:
-                                    shutil.rmtree(f'{callbackQuery.message.message_id}')
+                                    shutil.rmtree(f'{query.message.message_id}')
                                     doc.close()
                                     return
                              
@@ -1569,25 +1553,25 @@ async def answer(client: Client, query: CallbackQuery):
                                     return
                         
                             await bot.send_chat_action(
-                                callbackQuery.message.chat.id, "upload_photo"
+                                query.message.chat.id, "upload_photo"
                             )
                         
                             try:
                                 await bot.send_media_group(
-                                    callbackQuery.message.chat.id,
-                                    media[callbackQuery.message.chat.id],
+                                    query.message.chat.id,
+                                    media[query.message.chat.id],
                                     #reply_to_message_id=callbackQuery.message.message_id
                                 )
                             
                             except Exception:
-                                del media[callbackQuery.message.chat.id]
-                                del mediaDoc[callbackQuery.message.chat.id]
+                                del media[query.message.chat.id]
+                                del mediaDoc[query.message.chat.id]
                         
                         if edit == "multipleImgAsDocument":
                         
                             if callbackQuery.message.chat.id not in PROCESS:
                                 try:
-                                    shutil.rmtree(f'{callbackQuery.message.reply_to_message.message_id}')
+                                    shutil.rmtree(f'{query.message.reply_to_message.message_id}')
                                     doc.close()
                                     return
                             
@@ -1595,22 +1579,22 @@ async def answer(client: Client, query: CallbackQuery):
                                     return
                         
                             await bot.send_chat_action(
-                                callbackQuery.message.reply_to_message.chat.id, "upload_document"
+                                query.message.chat.id, "upload_document"
                             )
                         
                             try:
                                 await bot.send_media_group(
-                                    callbackQuery.message.reply_to_message.chat.id,
-                                    mediaDoc[callbackQuery.message.reply_to_message.chat.id]
+                                    query.message.reply_to_message.chat.id,
+                                    mediaDoc[query.message.reply_to_message.chat.id]
                                 )
                             except Exception:
-                                del mediaDoc[callbackQuery.message.reply_to_message.chat.id]
-                                del media[callbackQuery.message.reply_to_message.chat.id]
+                                del mediaDoc[query.message.reply_to_message.chat.id]
+                                del media[query.message.reply_to_message.chat.id]
                         
-                        shutil.rmtree(f'{callbackQuery.message.reply_to_message.message_id}/pgs')
+                        shutil.rmtree(f'{query.message.reply_to_message.message_id}/pgs')
                 
-                    PROCESS.remove(callbackQuery.message.reply_to_message.chat.id)
-                    del PAGENOINFO[callbackQuery.message.reply_to_message.chat.id]
+                    PROCESS.remove(query.message.reply_to_message.chat.id)
+                    del PAGENOINFO[query.message.reply_to_message.chat.id]
                     doc.close()
                     """sleep(5)
                     await bot.edit_message_text(
@@ -1618,15 +1602,15 @@ async def answer(client: Client, query: CallbackQuery):
                         message_id = callbackQuery.message.reply_to_message.message_id,
                         text = f'`Uploading Completed.. `🏌️'
                     )"""
-                    shutil.rmtree(f'{callbackQuery.message.reply_to_message.message_id}')
+                    shutil.rmtree(f'{query.message.reply_to_message.message_id}')
                 
                     sleep(2)
                     await bot.send_chat_action(
-                        callbackQuery.message.chat.id, "typing"
+                        query.message.chat.id, "typing"
                     )
                     sleep(2)
                     await bot.send_message(
-                        callbackQuery.message.chat.id, #Msgs.feedbackMsg,
+                        query.message.chat.id, #Msgs.feedbackMsg,
                         text = f'`Uploading Completed.. `🏌️',
                         disable_web_page_preview=True
                     )
@@ -1634,31 +1618,31 @@ async def answer(client: Client, query: CallbackQuery):
                 if edit == "asImages" or edit == "asDocument":
                 
                     await bot.edit_message_text(
-                        chat_id = callbackQuery.message.reply_to_message.chat.id,
-                        message_id = callbackQuery.message.reply_to_message.message_id,
-                        text = f"`Fetching page Number:{PAGENOINFO[callbackQuery.message.chat.id][3]} 🤧`"
+                        chat_id = query.message.reply_to_message.chat.id,
+                        message_id = query.message.reply_to_message.message_id,
+                        text = f"`Fetching page Number:{PAGENOINFO[query.message.chat.id][3]} 🤧`"
                     )
                 
-                    page = doc.loadPage(int(PAGENOINFO[callbackQuery.message.reply_to_message.chat.id][3])-1)
+                    page = doc.loadPage(int(PAGENOINFO[query.message.reply_to_message.chat.id][3])-1)
                     pix = page.getPixmap(matrix = mat)
                     await bot.edit_message_text(
-                        chat_id = callbackQuery.message.reply_to_message.chat.id,
-                        message_id = callbackQuery.message.reply_to_message.message_id,
+                        chat_id = query.message.reply_to_message.chat.id,
+                        message_id = query.message.reply_to_message.message_id,
                         text = f"`Successfully Converted your page..✌️`"
                     )
                 
-                    os.mkdir(f'{callbackQuery.message.reply_to_message.message_id}/pgs')
+                    os.mkdir(f'{query.message.reply_to_message.message_id}/pgs')
                 
                     with open(
-                        f'{callbackQuery.message.reply_to_message.message_id}/pgs/{PAGENOINFO[callbackQuery.message.reply_to_message.chat.id][3]}.jpg','wb'
+                        f'{query.message.reply_to_message.message_id}/pgs/{PAGENOINFO[query.message.reply_to_message.chat.id][3]}.jpg','wb'
                     ):
-                        pix.writePNG(f'{callbackQuery.message.reply_to_message.message_id}/pgs/{PAGENOINFO[callbackQuery.message.reply_to_message.chat.id][3]}.jpg')
+                        pix.writePNG(f'{query.message.reply_to_message.message_id}/pgs/{PAGENOINFO[query.message.reply_to_message.chat.id][3]}.jpg')
                 
-                    file = f'{callbackQuery.message.reply_to_message.message_id}/pgs/{PAGENOINFO[callbackQuery.message.reply_to_message.chat.id][3]}.jpg'
+                    file = f'{query.message.reply_to_message.message_id}/pgs/{PAGENOINFO[query.message.reply_to_message.chat.id][3]}.jpg'
                     
                     if os.path.getsize(file) >= 1000000:
                         picture = Image.open(file)
-                        CmpImg = f'{callbackQuery.message.reply_to_message.message_id}/pgs/temp{PAGENOINFO[callbackQuery.message.reply_to_message.chat.id][3]}.jpeg'
+                        CmpImg = f'{query.message.reply_to_message.message_id}/pgs/temp{PAGENOINFO[query.message.reply_to_message.chat.id][3]}.jpeg'
                     
                         picture.save(
                             CmpImg,
@@ -1677,43 +1661,43 @@ async def answer(client: Client, query: CallbackQuery):
                     
                     if edit == "asImages":
                         await bot.send_chat_action(
-                            callbackQuery.message.chat.id, "upload_photo"
+                            query.message.chat.id, "upload_photo"
                         )
                         sendfile = open(file,'rb')
                         await bot.send_photo(
-                            callbackQuery.message.chat.id,
+                            query.message.chat.id,
                             sendfile
                         )
                     
                     if edit == "asDocument":
                         await bot.send_chat_action(
-                            callbackQuery.message.chat.id, "upload_document"
+                            query.message.chat.id, "upload_document"
                         )
                         sendfile = open(file,'rb')
                         await bot.send_document(
-                            callbackQuery.message.chat.id,
+                            query.message.chat.id,
                             thumb = Config.PDF_THUMBNAIL,
                             document = sendfile
                         )
                     
                     await bot.edit_message_text(
-                        chat_id = callbackQuery.message.reply_to_message.chat.id,
-                        message_id = callbackQuery.message.reply_to_message.message_id,
+                        chat_id = query.message.reply_to_message.chat.id,
+                        message_id = query.message.reply_to_message.message_id,
                         text = f'`Uploading Completed.. `🏌️'
                     )
                 
-                    PROCESS.remove(callbackQuery.message.reply_to_message.chat.id)
-                    del PAGENOINFO[callbackQuery.message.reply_to_message.chat.id]
+                    PROCESS.remove(query.message.reply_to_message.chat.id)
+                    del PAGENOINFO[query.message.reply_to_message.chat.id]
                     doc.close()
                 
-                    shutil.rmtree(f'{callbackQuery.message.reply_to_message.message_id}')
+                    shutil.rmtree(f'{query.message.reply_to_message.message_id}')
                 
                     sleep(5)
                     await bot.send_chat_action(
-                        callbackQuery.message.reply_to_message.chat.id, "typing"
+                        query.message.reply_to_message.chat.id, "typing"
                     )
                     await bot.send_message(
-                        callbackQuery.message.reply_to_message.chat.id, Msgs.feedbackMsg,
+                        query.message.reply_to_message.chat.id, Msgs.feedbackMsg,
                         disable_web_page_preview = True
                     )
                 
@@ -1721,12 +1705,12 @@ async def answer(client: Client, query: CallbackQuery):
             
                 try:
                     await bot.edit_message_text(
-                        chat_id = callbackQuery.message.reply_to_message.chat.id,
-                        message_id = callbackQuery.message.reply_to_message.message_id,
+                        chat_id = query.message.reply_to_message.chat.id,
+                        message_id = query.message.reply_to_message.message_id,
                         text = Msgs.errorEditMsg.format(e)
                     )
-                    shutil.rmtree(f'{callbackQuery.message.reply_to_message.message_id}')
-                    PROCESS.remove(callbackQuery.message.reply_to_message.chat.id)
+                    shutil.rmtree(f'{query.message.reply_to_message.message_id}')
+                    PROCESS.remove(query.message.reply_to_message.chat.id)
                     doc.close()
             
                 except Exception:
@@ -1736,7 +1720,7 @@ async def answer(client: Client, query: CallbackQuery):
         
             try:
                 await bot.answer_callback_query(
-                    callbackQuery.id,
+                    query.id,
                     text = Msgs.fullPdfSplit,
                     show_alert = True,
                     cache_time = 0
@@ -1748,11 +1732,11 @@ async def answer(client: Client, query: CallbackQuery):
         elif edit in ["multipleImgAsPdf", "asPdf"]:
         
             try:
-                if (callbackQuery.message.reply_to_message.chat.id in PROCESS):
+                if (query.message.reply_to_message.chat.id in PROCESS):
                 
                     await bot.edit_message_text(
-                        chat_id = callbackQuery.message.reply_to_message.chat.id,
-                        message_id = callbackQuery.message.reply_to_message.message_id,
+                        chat_id = query.message.reply_to_message.chat.id,
+                        message_id = query.message.reply_to_message.message_id,
                         text = "Same work done before..🏃"
                     )
                     return
