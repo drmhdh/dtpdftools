@@ -1467,7 +1467,7 @@ async def answer(client: Client, query: CallbackQuery):
                                                                           
                             if query.message.chat.id not in PROCESS:                           
                                 try:
-                                    await bot.edit_message_text(
+                                    await query.message.edit_text(
                                         chat_id = query.message.chat.id,
                                         message_id = query.message.message_id,
                                         text = f"`Canceled at {cnvrtpg}/{int((PAGENOINFO[query.message.chat.id][2])+1 - int(PAGENOINFO[query.message.chat.id][1]))} pages.. 🙄`"
@@ -1484,7 +1484,7 @@ async def answer(client: Client, query: CallbackQuery):
                             ):
                                 pix.writePNG(f'{query.message.message_id}/pgs/{pageNo}.jpg')
                         
-                        await bot.edit_message_text(
+                        await query.message.edit_text(
                             chat_id = query.message.chat.id,
                             message_id = query.fixpdfbut.message_id,
                             text = f"`Started  📤  from {cnvrtpg}'th 📃 \n⏳ This might take some Time` \n🙇 Trying to Extract 📜 `{PAGENOINFO[callbackQuery.message.chat.id][1]}` to `{PAGENOINFO[callbackQuery.message.chat.id][2]}`:"
