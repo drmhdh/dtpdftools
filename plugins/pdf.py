@@ -1207,7 +1207,7 @@ async def answer(client: Client, query: CallbackQuery):
     except:
         typed = query.from_user.id
         pass
-    if (clicked == typed) or (clicked in AUTH_USERS) or (clicked in ADMINS): 
+    if (clicked == typed) or (clicked in ADMINS): 
     
         if query.data == "strtDevEdt":
         
