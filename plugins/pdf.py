@@ -1211,7 +1211,7 @@ async def answer(client: Client, query: CallbackQuery):
     
         if query.data == "strtDevEdt":
         
-        try:
+            try:
                 await query.message.edit_text(
                 Msgs.aboutDev, disable_web_page_preview = True,
                 reply_markup = InlineKeyboardMarkup(
