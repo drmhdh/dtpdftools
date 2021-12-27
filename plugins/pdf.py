@@ -1417,8 +1417,8 @@ async def answer(client: Client, query: CallbackQuery):
         
         elif query.data in ["multipleImgAsImages", "multipleImgAsDocument", "asImages", "asDocument"]:            
             try:
-                if (query.message.message_id in PROCESS):                
-                    await query.message.edit_text(
+                if (query.message.chat_id in PROCESS):                
+                    await bot.message.edit_text(
                         chat_id = query.message.chat.id,
                         message_id = query.message.message_id,
                         text = "Same work done before..🏃"
@@ -1427,7 +1427,7 @@ async def answer(client: Client, query: CallbackQuery):
             
                 PROCESS.append(query.message.chat.id)
             
-                await query.message.edit_text(
+                await bot.message.edit_text(
                     chat_id = query.message.chat.id,
                     message_id = query.fixpdfbut.message_id,
                     text = "`Downloading your pdf..⏳`"           
