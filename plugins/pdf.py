@@ -1731,7 +1731,7 @@ async def answer(client: Client, query: CallbackQuery):
         elif edit in ["multipleImgAsPdf", "asPdf"]:
         
             try:
-                if (query.message.reply_to_message.chat.id in PROCESS) or (callbackQuery.message.chat.id in PDF2IMG):
+                if (query.message.reply_to_message.chat.id in PROCESS) or (callbackQuery.message.chat.id not in PDF2IMG):
                 
                     await bot.edit_message_text(
                         chat_id = query.message.chat.id,
