@@ -1199,8 +1199,7 @@ async def extract(bot, message):
 
 @Client.on_callback_query()
 async def answer(client: Client, query: CallbackQuery): 
-    
-    
+        
     clicked = query.from_user.id
     try:
         typed = query.message.reply_to_message.from_user.id
@@ -1417,8 +1416,8 @@ async def answer(client: Client, query: CallbackQuery):
         
         elif query.data in ["multipleImgAsImages", "multipleImgAsDocument", "asImages", "asDocument"]:            
             try:
-                if (query.message.chat_id in PROCESS):                
-                    await bot.message.edit_text(
+                if query.message.chat_id in PROCESS:                
+                    await bot.edit_message_text(
                         chat_id = query.message.chat.id,
                         message_id = query.message.message_id,
                         text = "Same work done before..🏃"
@@ -1427,9 +1426,9 @@ async def answer(client: Client, query: CallbackQuery):
             
                 PROCESS.append(query.message.chat.id)
             
-                await bot.message.edit_text(
+                await bot.edit_message_text(
                     chat_id = query.message.chat.id,
-                    message_id = query.fixpdfbut.message_id,
+                    message_id = query.message.message_id,
                     text = "`Downloading your pdf..⏳`"           
                 )
             
